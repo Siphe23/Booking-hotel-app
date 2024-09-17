@@ -1,17 +1,15 @@
-import React from 'react';
-import Navbar from '../components/Navbar'; 
+import React from 'react'; 
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Search from '../components/Search';
-import HeroSection from '../components/HeroSection'; 
-import OffersSection from '../components/OffersSection'; 
+import HeroSection from '../components/HeroSection';
+
+
 
 function Home() {
     return (
         <>
             <Navbar />
-            <HeroSection /> {/* Add the Hero Section */}
-            <Search /> {/* Your existing Search component */}
-            <OffersSection /> {/* Add the Offers Section */}
+            <HeroSection /> 
             <Footer />
         </>
     );
