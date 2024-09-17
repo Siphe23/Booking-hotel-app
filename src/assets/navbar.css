@@ -1,0 +1,58 @@
+/* Navbar styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f79e5b; /* Orange color similar to your image */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .icon h1 {
+    font-family: 'Comic Sans MS', sans-serif;
+    font-size: 24px;
+    color: black;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style-type: none;
+    gap: 20px; /* Spacing between links */
+  }
+  
+  .nav-links li {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-links li a i {
+    margin-right: 5px; /* Space between icon and text */
+  }
+  
+  .book-now-button {
+    background-color: #5eb3d4; /* Blue button */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .book-now-button i {
+    margin-right: 5px;
+  }
+  
+  .book-now-button:hover {
+    background-color: #4a9ebc; /* Darker blue on hover */
+  }
+  

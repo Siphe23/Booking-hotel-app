@@ -1,13 +1,15 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../assets/navbar.css'; 
 
 function Navbar() {
   return (
-    <nav>
+    <nav className="navbar">
       <div className="icon">
-        Hotelhub
+        <h1>HotelHub</h1>
       </div>
-      <ul>
+      <ul className="nav-links">
         <li><Link to="/home"><i className="fas fa-home"></i> Home</Link></li>
         <li><Link to="/ourhotels"><i className="fas fa-hotel"></i> Our Hotels</Link></li>
         <li><Link to="/about"><i className="fas fa-info-circle"></i> About</Link></li>
@@ -23,4 +25,5 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
