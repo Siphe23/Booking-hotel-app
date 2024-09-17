@@ -1,5 +1,6 @@
 import React from 'react';
-import '../assets/hero.css'; 
+import '../assets/hero.css';
+import STAFFS from '../images/aca.png'; // Adjust the image path
 
 const HeroSection = () => {
   const conversionRate = 18;
@@ -10,7 +11,7 @@ const HeroSection = () => {
       imgSrc: './images/download.png',
       title: 'Mossel Bay',
       priceUSD: 199,
-      rating: 4, 
+      rating: 4,
       location: 'Mossel Bay'
     },
     {
@@ -50,16 +51,14 @@ const HeroSection = () => {
       </div>
 
       <section className="offers">
-        {offers.map(offer => {
+        {offers.map((offer) => {
           const priceZAR = (offer.priceUSD * conversionRate).toFixed(2);
           return (
             <div key={offer.id} className="offer-card">
               <img src={offer.imgSrc} alt={offer.title} className="offer-image" />
               <h3>{offer.title}</h3>
               <p>Starting from R{priceZAR}/night</p>
-              <div className="offer-rating">
-                {renderStars(offer.rating)}
-              </div>
+              <div className="offer-rating">{renderStars(offer.rating)}</div>
               <div className="offer-location">
                 <img src="./images/location-icon.png" alt="Location Icon" className="location-icon" />
                 <span>{offer.location}</span>
@@ -69,8 +68,19 @@ const HeroSection = () => {
           );
         })}
       </section>
+
+      {/* CEO Card */}
+      <div className="ceo-card">
+        <img src={STAFFS} alt="CEO" className="ceo-photo" /> {/* Updated class name */}
+        <div className="ceo-details">
+          <h4>Lorem Ipsum, CEO of the company</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis leo quam.</p>
+        </div>
+      </div>
     </section>
   );
 };
 
 export default HeroSection;
+
+

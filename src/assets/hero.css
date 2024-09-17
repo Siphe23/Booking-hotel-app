@@ -1,4 +1,4 @@
-/* hero.css */
+
 body {
   background-image: url('../images/abackround.jpg'); 
   background-size: cover; 
@@ -156,4 +156,33 @@ body {
 .offer-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.ceo-card {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin: 6rem auto;
+  max-width: 500%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ceo-photo {
+  border-radius: 50%;
+  width: 80px; 
+  height: 80px; 
+  margin-right: 20px;
+}
+
+.ceo-details h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.ceo-details p {
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+  color: #777;
 }
