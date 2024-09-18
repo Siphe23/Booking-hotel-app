@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/hero.css';
-import STAFFS from '../images/aca.png'; // Adjust the image path
+import STAFFS from '../ceos/aca.png'; // Ensure the image path is correct
 
 const HeroSection = () => {
   const conversionRate = 18;
@@ -71,7 +71,7 @@ const HeroSection = () => {
 
       {/* CEO Card */}
       <div className="ceo-card">
-        <img src={STAFFS} alt="CEO" className="ceo-photo" /> {/* Updated class name */}
+        <img src={STAFFS} alt="CEO" className="ceo-photo" />
         <div className="ceo-details">
           <h4>Lorem Ipsum, CEO of the company</h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis leo quam.</p>
@@ -82,5 +82,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-

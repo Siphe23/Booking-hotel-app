@@ -13,16 +13,22 @@ function Footer() {
 
                 <div className="socials">
                     <h4>Socials:</h4>
-                    <a href="#"><img src="facebook-icon.png" alt="Facebook" /></a>
-                    <a href="#"><img src="mail-icon.png" alt="Mail" /></a>
-                    <a href="#"><img src="linkedin-icon.png" alt="LinkedIn" /></a>
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                        <img src="facebook-icon.png" alt="Facebook" />
+                    </a>
+                    <a href="mailto:nattfhub@gmail.com">
+                        <img src="mail-icon.png" alt="Mail" />
+                    </a>
+                    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                        <img src="linkedin-icon.png" alt="LinkedIn" />
+                    </a>
                 </div>
 
                 <div className="newsletter">
-                    <h4>Search for news letter</h4>
+                    <h4>Subscribe to our newsletter</h4>
                     <form>
-                        <input type="text" placeholder="Enter your email" />
-                        <button type="submit">Search</button>
+                        <input type="email" placeholder="Enter your email" />
+                        <button type="submit">Subscribe</button>
                     </form>
                 </div>
             </div>
@@ -30,8 +36,7 @@ function Footer() {
             <div className="bottom-footer">
                 <ul className="footer-nav">
                     <li><a href="/home">Home</a></li>
-                    <li><a href="/ourhotels">Our Hotel</a></li>
-            
+                    <li><a href="/ourhotels">Our Hotels</a></li>
                     <li><a href="/profile">Profile</a></li>
                 </ul>
                 <p>© 2024 Your Company Name. All Rights Reserved.</p>
