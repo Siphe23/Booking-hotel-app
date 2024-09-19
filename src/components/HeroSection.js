@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/hero.css';
-import STAFFS from '../ceos/aca.png'; // Ensure the image path is correct
+import STAFFS from '../ceos/aca.png'; 
 
 const HeroSection = () => {
   const conversionRate = 18;
@@ -8,7 +8,7 @@ const HeroSection = () => {
   const offers = [
     {
       id: 1,
-      imgSrc: './images/download.png',
+      imgSrc: '../',
       title: 'Mossel Bay',
       priceUSD: 199,
       rating: 4,
@@ -16,7 +16,7 @@ const HeroSection = () => {
     },
     {
       id: 2,
-      imgSrc: '/images/hotel2.jpg',
+      imgSrc: '../images/hotel.png',
       title: 'Ntsitsikama',
       priceUSD: 149,
       rating: 3,
@@ -69,7 +69,7 @@ const HeroSection = () => {
         })}
       </section>
 
-      {/* CEO Card */}
+
       <div className="ceo-card">
         <img src={STAFFS} alt="CEO" className="ceo-photo" />
         <div className="ceo-details">

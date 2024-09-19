@@ -1,10 +1,10 @@
 import React from 'react';
-import '../assets/HotelList.css'; // Import the CSS file for styling
+import '../assets/HotelList.css'; 
 
 const rooms = [
   {
     id: 1,
-    image: 'https://via.placeholder.com/150', // Replace with actual image URLs
+    image: 'https://via.placeholder.com/150', 
     name: 'Express',
     price: 'R450',
     breakfastIncluded: true,
@@ -63,7 +63,7 @@ function HotelList() {
                         <div className="room-info">
                             <h3>{room.name}</h3>
                             <div className="room-rating">
-                                <span>⭐⭐⭐⭐⭐</span> {/* Star ratings */}
+                                <span>⭐⭐⭐⭐⭐</span> 
                             </div>
                             <p>{room.price}</p>
                             {room.breakfastIncluded && <p>Breakfast included</p>}

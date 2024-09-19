@@ -1,17 +1,17 @@
-/* General container for the hotel list */
+
 .hotel-list-container {
     padding: 20px;
     text-align: center;
 }
 
-/* Responsive grid for the rooms */
+
 .rooms-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns grid */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px;
 }
 
-/* Individual room card styling */
+
 .room-card {
     background-color: #fff;
     border-radius: 8px;
@@ -24,11 +24,11 @@
 }
 
 .room-card:hover {
-    transform: translateY(-10px); /* Moves the card up */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deepens the shadow */
+    transform: translateY(-10px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
-/* Room image styling */
+
 .room-image {
     width: 150px;
     height: 100px;
@@ -36,24 +36,24 @@
     border-radius: 8px;
 }
 
-/* Room info container */
+
 .room-info {
     flex-grow: 1;
     margin-left: 15px;
 }
 
-/* Room name heading */
+
 .room-info h3 {
     margin: 0;
     font-size: 18px;
 }
 
-/* Star rating for the room */
+
 .room-rating {
     margin: 10px 0;
 }
 
-/* Amenities section */
+
 .amenities {
     display: flex;
     justify-content: space-between;
@@ -61,12 +61,12 @@
     margin: 10px 0;
 }
 
-/* Placeholder for amenity icons */
+
 .amenity-icon {
     font-size: 16px;
 }
 
-/* Button for getting the room */
+
 .get-button {
     background-color: #00aaff;
     color: white;
@@ -81,29 +81,28 @@
     background-color: #008ecc;
 }
 
-/* Styling for the h1 heading in OurHotels */
 .hotel-list-container h1 {
-    font-size: 48px; /* Larger font for more prominence */
-    font-family: 'Poppins', sans-serif; /* Sleek, modern font */
-    color: #fff; /* Text color to contrast with the background */
+    font-size: 48px; 
+    font-family: 'Poppins', sans-serif; 
+    color: #fff; 
     text-align: center;
     margin-bottom: 20px;
-    font-weight: 700; /* Extra bold */
+    font-weight: 700; 
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: linear-gradient(45deg, #f12711, #f5af19); /* Beautiful gradient */
+    background: linear-gradient(45deg, #f12711, #f5af19); 
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* Fill the text with gradient */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+    -webkit-text-fill-color: transparent; 
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4); 
     padding: 10px;
-    transition: transform 0.3s ease; /* Smooth animation */
+    transition: transform 0.3s ease; 
 }
 
 .hotel-list-container h1:hover {
-    transform: scale(1.1); /* Slightly increase size on hover for interactivity */
+    transform: scale(1.1); 
 }
 
-/* Style for the h2 heading */
+
 .hotel-list-container h2 {
     font-size: 30px;
     color: #444;
@@ -114,7 +113,6 @@
     letter-spacing: 1.5px;
 }
 
-/* Amenities icons placeholders */
 .amenity-icon.wifi::before { content: '📶'; }
 .amenity-icon.tv::before { content: '📺'; }
 .amenity-icon.ac::before { content: '❄️'; }
