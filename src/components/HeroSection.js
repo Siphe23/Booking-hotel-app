@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/hero.css';
-import STAFFS from '../ceos/aca.png'; 
+import STAFFS1 from '../ceos/aca.png'; 
+import STAFFS2 from '../ceos/27.jpg'; 
+import STAFFS3 from '../ceos/Rosalind-Brewer_Headshot_Cropped.jpg'; 
+import STAFFS4 from '../ceos/pexels-divinetechygirl-1181695.jpg';
+import STAFFS5 from '../ceos/pexels-moose-photos-170195-1036623.jpg';
+import STAFFS6 from '../ceos/pexels-ono-kosuki-5647284.jpg';
 
 const HeroSection = () => {
   const conversionRate = 18;
@@ -8,7 +13,7 @@ const HeroSection = () => {
   const offers = [
     {
       id: 1,
-      imgSrc: '../',
+      imgSrc: '../images/mossel-bay.jpg',
       title: 'Mossel Bay',
       priceUSD: 199,
       rating: 4,
@@ -24,13 +29,58 @@ const HeroSection = () => {
     },
     {
       id: 3,
-      imgSrc: '/images/hotel3.jpg',
+      imgSrc: '../images/hotel3.jpg',
       title: 'Coffebay',
       priceUSD: 299,
       rating: 5,
       location: 'Coffebay'
     }
   ];
+
+
+  const ceos = [
+    {
+      name: 'Jane Doe',
+      occupation: 'CEO',
+      imgSrc: STAFFS1,
+    },
+    {
+      name: 'John Smith',
+      occupation: 'CTO',
+      imgSrc: STAFFS2,
+    },
+    {
+      name: 'Emily Johnson',
+      occupation: 'CFO',
+      imgSrc: STAFFS3,
+    },
+    {
+      name: 'Michael Brown',
+      occupation: 'Operations Manager',
+      imgSrc: STAFFS4,
+    },
+    {
+      name: 'Linda Davis',
+      occupation: 'Assistant Manager',
+      imgSrc: STAFFS5,
+    },
+    {
+      name: 'William Wilson',
+      occupation: 'General Manager',
+      imgSrc: STAFFS6,
+    }
+  ];
+  
+
+  const [currentCeoIndex, setCurrentCeoIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentCeoIndex((prevIndex) => (prevIndex + 1) % ceos.length);
+    }, 5000); 
+
+    return () => clearInterval(interval);
+  }, [ceos.length]);
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -39,6 +89,8 @@ const HeroSection = () => {
       </span>
     ));
   };
+
+  const currentCeo = ceos[currentCeoIndex];
 
   return (
     <section className="hero">
@@ -69,12 +121,11 @@ const HeroSection = () => {
         })}
       </section>
 
-
       <div className="ceo-card">
-        <img src={STAFFS} alt="CEO" className="ceo-photo" />
+        <img src={currentCeo.imgSrc} alt={currentCeo.name} className="ceo-photo" />
         <div className="ceo-details">
-          <h4>Lorem Ipsum, CEO of the company</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis leo quam.</p>
+          <h4>{currentCeo.name}</h4>
+          <p>{currentCeo.occupation}</p>
         </div>
       </div>
     </section>
@@ -82,3 +133,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

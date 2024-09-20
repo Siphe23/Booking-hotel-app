@@ -1,25 +1,42 @@
 body {
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat;
-  background-attachment: fixed; 
   font-family: Arial, sans-serif;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .hero {
-  background-image: url('../images/istockphoto-93059492-2048x2048.jpg');
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
   background-size: cover;
-  background-position: center;
-  padding: 3rem;
-  text-align: center;
-  color: #333; 
+  animation: slideBackground 15s infinite; 
+}
+
+@keyframes slideBackground {
+  0% {
+    background-image: url('../images/fre.png.jpg'); 
+  }
+  33% {
+    background-image: url('../images/peop.png.jpg'); 
+  }
+  66% {
+    background-image: url('../images/re.png.jpg'); 
+  }
+  100% {
+    background-image: url('../images/tee.png.jpg'); 
+  }
 }
 
 .hero h1 {
   font-size: 2.5rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-top: 10rem;
   color: #000;
+  text-align: center; 
 }
 
 .search-bar {
@@ -74,9 +91,10 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  max-width: 300px;
-  min-height: 450px;
+  width: 250px; 
+  height: 450px; 
   text-align: center;
+
   padding-bottom: 20px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   display: flex;
@@ -135,8 +153,10 @@ body {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  width: 50%;
   margin-top: 10px;
   font-size: 1rem;
+  margin-left: 20%;
 }
 
 .show-more-button:hover {
@@ -147,33 +167,75 @@ body {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+@keyframes slideCeoCard {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 .ceo-card {
   display: flex;
   align-items: center;
   background-color: #f9f9f9;
-  padding: 1rem;
+  padding: 0.8rem;
   border-radius: 10px;
-  margin: 2rem auto;
-  max-width: 600px; /* Adjusted size */
+  margin: 1.5rem auto;
+  width: 50%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: slideCeoCard 1s ease-in-out;
 }
 
 .ceo-photo {
   border-radius: 50%;
-  width: 80px; 
-  height: 80px; 
-  margin-right: 20px;
+  width: 70px;
+  height: 70px; 
+  margin-right: 15px;
 }
 
 .ceo-details h4 {
   margin: 0;
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 1.1rem;
 }
 
 .ceo-details p {
   margin: 0.5rem 0 0 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.ceo-card {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 0.8rem; 
+  border-radius: 10px;
+
+  margin: 1.5rem auto; 
+  width: 50%; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 30px;
+}
+
+
+.ceo-photo {
+  border-radius: 50%;
+  width: 70px; 
+  height: 50px; 
+  margin-right: 15px; 
+}
+
+.ceo-details h4 {
+  margin: 0;
+  font-size: 1.1rem; 
+}
+
+.ceo-details p {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem; 
   color: #777;
 }

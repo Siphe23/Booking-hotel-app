@@ -8,7 +8,9 @@ function OurHotels() {
     return (
         <>
             <Navbar />
-            <HotelList /> 
+            <main>
+                <HotelList />
+            </main>
             <Footer />
         </>
     );

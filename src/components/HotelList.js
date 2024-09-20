@@ -45,8 +45,24 @@ const rooms = [
   {
     id: 6,
     image: 'https://via.placeholder.com/150',
+    name: 'Presidential Suite',
+    price: 'R2500',
+    breakfastIncluded: true,
+    amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
+  },
+  {
+    id: 7,
+    image: 'https://via.placeholder.com/150',
     name: 'Luxury Suite',
     price: 'R1500',
+    breakfastIncluded: true,
+    amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
+  },
+  {
+    id: 8,
+    image: 'https://via.placeholder.com/150',
+    name: 'Presidential Suite',
+    price: 'R2500',
     breakfastIncluded: true,
     amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
   },
@@ -72,7 +88,7 @@ function HotelList() {
                                     <span key={index} className={`amenity-icon ${amenity}`}></span>
                                 ))}
                             </div>
-                            <button className="get-button">Get</button>
+                            <button className="get-button">bookroom</button>
                         </div>
                     </div>
                 ))}
@@ -82,5 +98,6 @@ function HotelList() {
 }
 
 export default HotelList;
+
 
 
