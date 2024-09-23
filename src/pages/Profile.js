@@ -6,7 +6,6 @@ import '../assets/Profile.css';
 function Profile() {
   const [imagePreview, setImagePreview] = useState(null);
 
-  
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -29,19 +28,29 @@ function Profile() {
             <h2>Sign up to create account</h2>
 
             <form>
-              <label>User Name</label>
-              <input type="text" placeholder="Enter your full name" />
+              <label htmlFor="username">User Name</label>
+              <input type="text" id="username" placeholder="Enter your full name" />
 
-              <label>Email Address</label>
-              <input type="email" placeholder="Enter your email" />
+              <label htmlFor="email">Email Address</label>
+              <input type="email" id="email" placeholder="Enter your email" />
 
-              <label>Phone Number</label>
-              <input type="tel" placeholder="Enter your phone number" />
+              <label htmlFor="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="Enter your phone number" />
+              
+              <label htmlFor="user-type">User Type</label>
+              <select id="user-type" name='users'>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
 
-              <label>Profile Picture</label>
-              <input type="file" accept="image/*" onChange={handleImageUpload} />
+              <label htmlFor="profile-picture">Profile Picture</label>
+              <input 
+                type="file" 
+                id="profile-picture" 
+                accept="image/*" 
+                onChange={handleImageUpload} 
+              />
 
-            
               {imagePreview && (
                 <div className="image-preview">
                   <img src={imagePreview} alt="Profile Preview" className="preview-image" />
@@ -55,11 +64,15 @@ function Profile() {
           <div className="form">
             <h2>Welcome Back!</h2>
             <form>
-              <label>Email Address</label>
-              <input type="email" placeholder="Enter your email" />
-
-              <label>Password</label>
-              <input type="password" placeholder="Enter your password" />
+              <label htmlFor="login-email">Email Address</label>
+              <input type="email" id="login-email" placeholder="Enter your email" />
+              <label htmlFor="user-type">User Type</label>
+              <select id="user-type" name='users'>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+              <label htmlFor="login-password">Password</label>
+              <input type="password" id="login-password" placeholder="Enter your password" />
 
               <button type="submit">Login</button>
             </form>
