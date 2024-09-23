@@ -1,4 +1,4 @@
-/* General Styling */
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
@@ -7,7 +7,7 @@ body {
     padding: 0;
 }
 
-/* Booking Form Container */
+
 .booking-container {
 width: 800px;
     margin: 0 auto;
@@ -26,7 +26,7 @@ h2 {
     color: #333;
 }
 
-/* Form Styling */
+*/
 .booking-form {
     display: flex;
     flex-direction: column;
@@ -66,7 +66,7 @@ h2 {
     flex: 1;
 }
 
-/* Button Styling */
+
 .book-now-btn {
     background-color: #007bff;
     color: #fff;
@@ -82,7 +82,6 @@ h2 {
     background-color: #0056b3;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .booking-container {
         padding: 20px;
