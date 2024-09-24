@@ -9,7 +9,7 @@ function Booknow() {
         firstName: '',
         lastName: '',
         persons: 1,
-        roomsType: 1,
+        roomsType: 'Single',
         checkIn: '',
         checkOut: '',
     });
@@ -24,6 +24,13 @@ function Booknow() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        // Validation for check-out date being after check-in date
+        if (new Date(formData.checkOut) <= new Date(formData.checkIn)) {
+            alert('Check-out date must be after the check-in date.');
+            return;
+        }
+
         console.log(formData);
     };
 
@@ -86,15 +93,17 @@ function Booknow() {
 
                     <div className="input-group">
                         <label htmlFor="roomsType">Rooms Type</label>
-                        <input
-                            type="number"
+                        <select
                             id="roomsType"
                             name="roomsType"
                             value={formData.roomsType}
                             onChange={handleChange}
-                            min="1"
                             required
-                        />
+                        >
+                            <option value="Single">Single</option>
+                            <option value="Double">Double</option>
+                            <option value="Suite">Suite</option>
+                        </select>
                     </div>
 
                     <div className="input-group">
@@ -105,6 +114,7 @@ function Booknow() {
                             name="checkIn"
                             value={formData.checkIn}
                             onChange={handleChange}
+                            min={new Date().toISOString().split("T")[0]}  // Today's date as minimum
                             required
                         />
                     </div>
@@ -131,3 +141,5 @@ function Booknow() {
 }
 
 export default Booknow;
+
+
