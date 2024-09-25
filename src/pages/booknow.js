@@ -1,7 +1,10 @@
+
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import '../assets/Booknow.css'; 
 import Footer from '../components/Footer';
+import '../assets/Booknow.css';
+import { db } from '../Firebase/firebase'; 
+import { collection, addDoc } from 'firebase/firestore'; 
 
 function Booknow() {
     const [formData, setFormData] = useState({
@@ -22,15 +25,71 @@ function Booknow() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
+    
+        // Debugging
+        console.log("Form Submitted");
+    
+        // Basic form validation
+        if (!formData.email || !formData.firstName || !formData.lastName || !formData.checkIn || !formData.checkOut) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+    
+        if (new Date(formData.checkIn) >= new Date(formData.checkOut)) {
+            alert("Check-out date must be after the check-in date.");
+            return;
+        }
+    
+        if (formData.persons <= 0 || formData.roomsType <= 0) {
+            alert("Persons and Rooms Type must be greater than 0.");
+            return;
+        }
+    
+        try {
+            // Log form data to ensure the data is correct
+            console.log("Form Data: ", formData);
+    
+            // Add a new document to Firestore
+            await addDoc(collection(db, "bookings"), {
+                email: formData.email,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                persons: formData.persons,
+                roomsType: formData.roomsType,
+                checkIn: formData.checkIn,
+                checkOut: formData.checkOut,
+                timestamp: new Date(),
+            });
+    
+          
+            alert("Booking successful!");
+    
+            
+            console.log("Booking submitted successfully!");
+    
+            
+            setFormData({
+                email: '',
+                firstName: '',
+                lastName: '',
+                persons: 1,
+                roomsType: 1,
+                checkIn: '',
+                checkOut: '',
+            });
+    
+        } catch (error) {
+           
+            console.error("Error submitting booking: ", error);
+            alert("Failed to submit the booking. Please try again.");
+        }
     };
-
+    
     return (
         <div>
             <Navbar />
-
             <div className="booking-container">
                 <h2>Bookings</h2>
                 <form className="booking-form" onSubmit={handleSubmit}>
@@ -124,7 +183,6 @@ function Booknow() {
                     <button type="submit" className="book-now-btn">Book now</button>
                 </form>
             </div>
-
             <Footer />
         </div>
     );

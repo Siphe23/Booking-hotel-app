@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Actions/authActions';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { storage, auth } from '../Firebase/firebase'; 
+import { storage, auth, db } from '../Firebase/firebase'; 
 import { ref, uploadString } from 'firebase/storage';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { db } from '../Firebase/firebase'; 
 import '../assets/Profile.css';
+
+const isValidEmail = (email) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+};
 
 function Profile() {
   const [formData, setFormData] = useState({
@@ -22,10 +26,8 @@ function Profile() {
   const errorMessage = useSelector((state) => state.auth?.error || null);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleImageChange = (e) => {
@@ -33,10 +35,7 @@ function Profile() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData({
-          ...formData,
-          image: reader.result,
-        });
+        setFormData((prev) => ({ ...prev, image: reader.result }));
       };
       reader.readAsDataURL(file);
     }
@@ -44,59 +43,80 @@ function Profile() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    console.log("Signing up with:", formData);
+
     if (!formData.email || !formData.password) {
       alert("Please fill in both fields.");
       return;
     }
 
+    if (!isValidEmail(formData.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
     try {
-      
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       const user = userCredential.user;
 
-    
+      // Upload image if provided
       if (formData.image) {
         const storageRef = ref(storage, `images/${user.uid}`);
         await uploadString(storageRef, formData.image, 'data_url');
       }
 
-   
-      const userRef = db.collection('users').doc(user.uid);
-      await userRef.set({
+      // Add user data to Firestore
+      await db.collection('users').doc(user.uid).set({
         email: formData.email,
         phoneNumber: formData.phoneNumber,
         role: formData.userType,
       });
 
-    
       dispatch(login(formData.email, formData.password, formData.userType));
+      resetForm();
     } catch (error) {
       console.error("Error signing up:", error);
-      alert(error.message);
+      if (error.code === 'auth/email-already-in-use') {
+        alert("This email is already in use. Please log in instead.");
+        setShowSignup(false); // Switch to login form
+      } else {
+        alert(error.message); // For other errors
+      }
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log("Logging in with:", formData); // Log formData for debugging
+
     if (!formData.email || !formData.password) {
       alert("Please fill in both fields.");
       return;
     }
 
     try {
-   
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      
-
       dispatch(login(formData.email, formData.password, formData.userType));
+      resetForm();
     } catch (error) {
       console.error("Error logging in:", error);
       alert(error.message);
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      email: '',
+      password: '',
+      userType: 'user',
+      phoneNumber: '',
+      image: null,
+    });
+  };
+
   const handleSignupToggle = () => {
-    setShowSignup(!showSignup);
+    setShowSignup((prev) => !prev);
+    resetForm(); // Reset form when toggling
   };
 
   return (
@@ -178,6 +198,7 @@ function Profile() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
+                  required
                 />
 
                 <label htmlFor="login-password">Password</label>
@@ -188,6 +209,7 @@ function Profile() {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Enter your password"
+                  required
                 />
 
                 <label htmlFor="user-type">User Type</label>
