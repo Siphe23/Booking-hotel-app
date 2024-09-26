@@ -1,10 +1,15 @@
-import React from 'react';
-import '../assets/HotelList.css'; 
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRooms } from '../redux/hotelSlice'; 
+import { db } from '../Firebase/firebase'; 
+import { collection, getDocs } from 'firebase/firestore';
+import '../assets/HotelList.css';
+
 
 const rooms = [
   {
     id: 1,
-    image: 'https://via.placeholder.com/150', 
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/room1.png?alt=media&token=YOUR_TOKEN',
     name: 'Express',
     price: 'R450',
     breakfastIncluded: true,
@@ -12,7 +17,7 @@ const rooms = [
   },
   {
     id: 2,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/room1.png?alt=media&token=YOUR_TOKEN',
     name: 'Deluxe',
     price: 'R650',
     breakfastIncluded: true,
@@ -20,7 +25,7 @@ const rooms = [
   },
   {
     id: 3,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/room3.png?alt=media&token=YOUR_TOKEN',
     name: 'Suite',
     price: 'R850',
     breakfastIncluded: true,
@@ -28,7 +33,7 @@ const rooms = [
   },
   {
     id: 4,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/room4.png?alt=media&token=YOUR_TOKEN',
     name: 'Penthouse',
     price: 'R1200',
     breakfastIncluded: true,
@@ -36,7 +41,7 @@ const rooms = [
   },
   {
     id: 5,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/room5.png?alt=media&token=YOUR_TOKEN',
     name: 'Luxury Suite',
     price: 'R1500',
     breakfastIncluded: true,
@@ -44,23 +49,7 @@ const rooms = [
   },
   {
     id: 6,
-    image: 'https://via.placeholder.com/150',
-    name: 'Presidential Suite',
-    price: 'R2500',
-    breakfastIncluded: true,
-    amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
-  },
-  {
-    id: 7,
-    image: 'https://via.placeholder.com/150',
-    name: 'Luxury Suite',
-    price: 'R1500',
-    breakfastIncluded: true,
-    amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
-  },
-  {
-    id: 8,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/room6.png?alt=media&token=YOUR_TOKEN',
     name: 'Presidential Suite',
     price: 'R2500',
     breakfastIncluded: true,
@@ -68,36 +57,68 @@ const rooms = [
   },
 ];
 
+
 function HotelList() {
+    const dispatch = useDispatch();
+    const roomsFromState = useSelector((state) => state.hotels.rooms);
+
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const roomsCollection = collection(db, 'rooms'); 
+                const roomSnapshot = await getDocs(roomsCollection);
+                const roomList = roomSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                // Log the fetched rooms to the console
+                console.log("Fetched rooms:", roomList);
+
+                if (roomList.length > 0) {
+                    dispatch(setRooms(roomList)); 
+                } else {
+                    // If no rooms fetched, dispatch static data
+                    dispatch(setRooms(rooms));
+                }
+            } catch (error) {
+                console.error("Error fetching rooms:", error);
+                // On error, dispatch static data as fallback
+                dispatch(setRooms(rooms));
+            }
+        };
+
+        fetchRooms();
+    }, [dispatch]);
+
     return (
         <div className="hotel-list-container">
             <h2>Available Rooms</h2>
             <div className="rooms-grid">
-                {rooms.map((room) => (
-                    <div key={room.id} className="room-card">
-                        <img src={room.image} alt={room.name} className="room-image" />
-                        <div className="room-info">
-                            <h3>{room.name}</h3>
-                            <div className="room-rating">
-                                <span>⭐⭐⭐⭐⭐</span> 
+                {roomsFromState.length > 0 ? (
+                    roomsFromState.map((room) => (
+                        <div key={room.id} className="room-card">
+                            <img src={room.image} alt={room.name} className="room-image" />
+                            <div className="room-info">
+                                <h3>{room.name}</h3>
+                                <div className="room-rating">
+                                    <span>⭐⭐⭐⭐⭐</span>
+                                </div>
+                                <p>{room.price}</p>
+                                {room.breakfastIncluded && <p>Breakfast included</p>}
+                                <div className="amenities">
+                                    {room.amenities.map((amenity, index) => (
+                                        <span key={index} className={`amenity-icon ${amenity}`}></span>
+                                    ))}
+                                </div>
+                                <button className="get-button">Book Room</button>
                             </div>
-                            <p>{room.price}</p>
-                            {room.breakfastIncluded && <p>Breakfast included</p>}
-                            <div className="amenities">
-                                {room.amenities.map((amenity, index) => (
-                                    <span key={index} className={`amenity-icon ${amenity}`}></span>
-                                ))}
-                            </div>
-                            <button className="get-button">bookroom</button>
                         </div>
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    <p>No rooms available.</p>
+                )}
             </div>
         </div>
     );
 }
 
 export default HotelList;
-
-
 

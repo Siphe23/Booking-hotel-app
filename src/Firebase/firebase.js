@@ -1,26 +1,28 @@
-// Import the functions you need from the SDKs you need
+// src/Firebase/firebase.js
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore"; // Import Firestore
+import { getAuth } from "firebase/auth"; // Import Auth
+import { getStorage } from "firebase/storage"; // Import Storage
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCmrpgzH3XkoS_08yJ99eL1Hn3AJPmkIa8",
-  authDomain: "booking-hotel-app-ea196.firebaseapp.com",
-  projectId: "booking-hotel-app-ea196",
-  storageBucket: "booking-hotel-app-ea196.appspot.com",
-  messagingSenderId: "318234002060",
-  appId: "1:318234002060:web:cd3df551828a813d2d71a9",
-  measurementId: "G-FS9K6BMCCE"
+  apiKey: "AIzaSyB35zqc99O83jS6NZHsYXFpL8wOQ3djxRg",
+  authDomain: "hotel-booking-app-a083a.firebaseapp.com",
+  projectId: "hotel-booking-app-a083a",
+  storageBucket: "hotel-booking-app-a083a.appspot.com",
+  messagingSenderId: "386005281931",
+  appId: "1:386005281931:web:6b9927b8ec93d56541b88e",
+  measurementId: "G-Z5L7RFEZ5X"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app); // Initialize Firebase Authentication
+const analytics = getAnalytics(app); // Optional: Remove if not needed
 const db = getFirestore(app); // Initialize Firestore
-const storage = getStorage(app); // Initialize Cloud Storage
+const auth = getAuth(app); // Initialize Auth
+const storage = getStorage(app); // Initialize Storage
 
-export { auth, db, storage };
+// Export initialized Firebase app, Firestore, Auth, and Storage
+
+export { app, db, auth, storage };

@@ -3,7 +3,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
     LOGOUT,
-  } from '../actionTypes';
+  } from '../Actions/actionTypes';
   
   const initialState = {
     user: null,

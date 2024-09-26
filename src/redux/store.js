@@ -1,10 +1,12 @@
-// store.js
+
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../redux/authSlice'; // Update with the correct path
+import authReducer from '../redux/authSlice'; 
+import hotelReducer from '../redux/hotelSlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    hotels: hotelReducer,
   },
 });
 

@@ -4,8 +4,9 @@ import { login } from '../Actions/authActions';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { storage, auth, db } from '../Firebase/firebase'; 
-import { ref, uploadString } from 'firebase/storage';
+import { ref, uploadString, getDownloadURL } from 'firebase/storage';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import '../assets/Profile.css';
 
 const isValidEmail = (email) => {
@@ -58,52 +59,50 @@ function Profile() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       const user = userCredential.user;
+      let imageUrl = null;
 
       // Upload image if provided
       if (formData.image) {
         const storageRef = ref(storage, `images/${user.uid}`);
         await uploadString(storageRef, formData.image, 'data_url');
+        imageUrl = await getDownloadURL(storageRef);
       }
 
       // Add user data to Firestore
-      await db.collection('users').doc(user.uid).set({
+      await setDoc(doc(db, 'users', user.uid), {
         email: formData.email,
         phoneNumber: formData.phoneNumber,
         role: formData.userType,
+        image: imageUrl,
       });
 
       dispatch(login(formData.email, formData.password, formData.userType));
       resetForm();
     } catch (error) {
       console.error("Error signing up:", error);
-      if (error.code === 'auth/email-already-in-use') {
-        alert("This email is already in use. Please log in instead.");
-        setShowSignup(false); // Switch to login form
-      } else {
-        alert(error.message); // For other errors
-      }
+      alert(error.message);
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log("Logging in with:", formData); // Log formData for debugging
-
+  
     if (!formData.email || !formData.password) {
       alert("Please fill in both fields.");
       return;
     }
-
+  
     try {
-      await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      dispatch(login(formData.email, formData.password, formData.userType));
+      // Use the Redux action to handle login
+      await dispatch(login(formData.email, formData.password));
       resetForm();
     } catch (error) {
       console.error("Error logging in:", error);
       alert(error.message);
     }
   };
-
+  
   const resetForm = () => {
     setFormData({
       email: '',
@@ -116,7 +115,7 @@ function Profile() {
 
   const handleSignupToggle = () => {
     setShowSignup((prev) => !prev);
-    resetForm(); // Reset form when toggling
+    resetForm();
   };
 
   return (
