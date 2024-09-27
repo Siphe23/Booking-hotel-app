@@ -28,10 +28,10 @@ function Booknow() {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
-        // Debugging
+
         console.log("Form Submitted");
     
-        // Basic form validation
+      
         if (!formData.email || !formData.firstName || !formData.lastName || !formData.checkIn || !formData.checkOut) {
             alert("Please fill in all required fields.");
             return;
@@ -48,10 +48,10 @@ function Booknow() {
         }
     
         try {
-            // Log form data to ensure the data is correct
+           
             console.log("Form Data: ", formData);
     
-            // Add a new document to Firestore
+           
             await addDoc(collection(db, "bookings"), {
                 email: formData.email,
                 firstName: formData.firstName,

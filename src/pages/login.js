@@ -1,21 +1,19 @@
-import React from 'react'
+import React from 'react';
 import Navbar from '../components/Navbar';
 
-import LogiForm from '../components/LoginSection';
-
+import LoginForm from '../components/LoginSection'; 
 
 function Login() {
   return (
     <>
-    <Navbar />
-    <LogiForm /> 
-   
+      <Navbar />
+      <LoginForm /> 
+     
     </>
-  )
+  );
 }
 
-export default Login
-
+export default Login;
 
 
 

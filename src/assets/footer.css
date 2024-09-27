@@ -3,16 +3,16 @@ footer {
     font-family: Arial, sans-serif;
     position: relative;
     width: 100%;
-    height:1rem;
+    height: 100px; 
 }
 
 .footer-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 0 10px; 
+    height: 100%; 
     background-color: #e0e0e0;
-    position: relative;
 }
 
 .contact-info, .socials, .newsletter {
@@ -20,7 +20,6 @@ footer {
     flex: 1;
     position: relative;
 }
-
 
 .socials::before,
 .socials::after {
@@ -44,7 +43,6 @@ footer {
 .socials::after {
     right: -10px; 
 }
-
 
 .footer-container::before {
     display: none; 
@@ -122,8 +120,6 @@ body {
 footer {
     margin-top: auto;
 }
-
-
 
 
 

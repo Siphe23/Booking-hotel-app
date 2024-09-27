@@ -139,8 +139,8 @@
 
 .image-preview {
     margin-top: 20px;
-    width: 100px; /* Adjust size as needed */
-    height: 100px; /* Adjust size as needed */
-    border-radius: 50%; /* Make it circular */
-    object-fit: cover; /* Ensure the image covers the area */
+    width: 100px; 
+    height: 100px;
+    border-radius: 50%; 
+    object-fit: cover; 
 }
