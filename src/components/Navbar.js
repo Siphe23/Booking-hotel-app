@@ -17,7 +17,8 @@ function Navbar() {
       <ul className="nav-links">
         <li><Link to="/home"><i className="fas fa-home"></i> Home</Link></li>
         <li><Link to="/ourhotels"><i className="fas fa-hotel"></i> Our Hotels</Link></li>
-        <li><Link to="/profile"><i className="fas fa-user"></i> Profile</Link></li>
+        <li><Link to="/login"><i className="fas fa-user"></i> Login</Link></li>
+        <li><Link to="/register"><i className="fas fa-user"></i> Register</Link></li>
         <li>
           <button className="book-now-button" onClick={handleBookNow}>
             <i className="fas fa-book"></i> Book Now

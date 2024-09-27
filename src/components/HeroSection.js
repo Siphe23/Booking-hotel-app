@@ -10,33 +10,34 @@ import STAFFS6 from '../ceos/pexels-ono-kosuki-5647284.jpg';
 const HeroSection = () => {
   const conversionRate = 18;
 
-  const offers = [
-    {
-      id: 1,
-      imgSrc: '../images/mossel-bay.jpg',
-      title: 'Mossel Bay',
-      priceUSD: 199,
-      rating: 4,
-      location: 'Mossel Bay'
-    },
-    {
-      id: 2,
-      imgSrc: '../images/hotel.png',
-      title: 'Ntsitsikama',
-      priceUSD: 149,
-      rating: 3,
-      location: 'Ntsitsikama'
-    },
-    {
-      id: 3,
-      imgSrc: '../images/hotel3.jpg',
-      title: 'Coffebay',
-      priceUSD: 299,
-      rating: 5,
-      location: 'Coffebay'
-    }
-  ];
 
+    const offers = [
+      {
+        id: 1,
+        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/mossel-bay.jpg?alt=media&token=YOUR_TOKEN', // Replace with actual token
+        title: 'Mossel Bay',
+        priceUSD: 199,
+        rating: 4,
+        location: 'Mossel Bay'
+      },
+      {
+        id: 2,
+        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/hotel.png?alt=media&token=YOUR_TOKEN', // Replace with actual token
+        title: 'Ntsitsikama',
+        priceUSD: 149,
+        rating: 3,
+        location: 'Ntsitsikama'
+      },
+      {
+        id: 3,
+        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/hotel3.jpg?alt=media&token=YOUR_TOKEN', // Replace with actual token
+        title: 'Coffebay',
+        priceUSD: 299,
+        rating: 5,
+        location: 'Coffebay'
+      }
+    ];
+    
 
   const ceos = [
     {

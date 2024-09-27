@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setRooms } from '../redux/hotelSlice'; 
 import { db } from '../Firebase/firebase'; 
 import { collection, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom'; 
 import '../assets/HotelList.css';
-
 
 const rooms = [
   {
@@ -57,9 +57,9 @@ const rooms = [
   },
 ];
 
-
 function HotelList() {
     const dispatch = useDispatch();
+    const navigate = useNavigate(); 
     const roomsFromState = useSelector((state) => state.hotels.rooms);
 
     useEffect(() => {
@@ -69,24 +69,26 @@ function HotelList() {
                 const roomSnapshot = await getDocs(roomsCollection);
                 const roomList = roomSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-                // Log the fetched rooms to the console
                 console.log("Fetched rooms:", roomList);
 
                 if (roomList.length > 0) {
                     dispatch(setRooms(roomList)); 
                 } else {
-                    // If no rooms fetched, dispatch static data
                     dispatch(setRooms(rooms));
                 }
             } catch (error) {
                 console.error("Error fetching rooms:", error);
-                // On error, dispatch static data as fallback
-                dispatch(setRooms(rooms));
+                dispatch(setRooms(rooms)); 
             }
         };
 
         fetchRooms();
     }, [dispatch]);
+
+    const handleBookNow = (roomId) => {
+       
+        navigate(`/booknow?roomId=${roomId}`);
+    };
 
     return (
         <div className="hotel-list-container">
@@ -108,7 +110,9 @@ function HotelList() {
                                         <span key={index} className={`amenity-icon ${amenity}`}></span>
                                     ))}
                                 </div>
-                                <button className="get-button">Book Room</button>
+                                <button className="get-button" onClick={() => handleBookNow(room.id)}>
+                                    Book Room
+                                </button>
                             </div>
                         </div>
                     ))
@@ -121,4 +125,3 @@ function HotelList() {
 }
 
 export default HotelList;
-

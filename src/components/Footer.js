@@ -37,7 +37,8 @@ function Footer() {
                 <ul className="footer-nav">
                     <li><a href="/home">Home</a></li>
                     <li><a href="/ourhotels">Our Hotels</a></li>
-                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/login"></a>Login</li>
+                    <li><a href="/register">Register</a></li>
                 </ul>
                 <p>© 2024 Your Company Name. All Rights Reserved.</p>
             </div>
