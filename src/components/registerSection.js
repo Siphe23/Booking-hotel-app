@@ -5,6 +5,7 @@ import { auth, db } from "../Firebase/firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { setUser, setError } from "../redux/authSlice";
 
+
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
