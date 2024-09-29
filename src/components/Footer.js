@@ -26,16 +26,16 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="bottom-footer">
-        <ul className="footer-nav">
-          <li><a href="/terms">Terms & Conditions</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/contact">Contact Us</a></li>
-        </ul>
-        <p>&copy; 2024 HotelHub. All Rights Reserved.</p>
-      </div>
-    </footer>
-  );
-};
+            <div className="bottom-footer">
+                <ul className="footer-nav">
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/ourhotels">Our Hotels</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                </ul>
+                <p>© 2024 Your Company Name. All Rights Reserved.</p>
+            </div>
+        </footer>
+    );
+}
 
 export default Footer;

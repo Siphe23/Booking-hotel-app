@@ -10,10 +10,12 @@ import STAFFS6 from '../ceos/pexels-ono-kosuki-5647284.jpg';
 const HeroSection = () => {
   const conversionRate = 18;
 
+
   const offers = [
     {
       id: 1,
       imgSrc: '../images/mossel-bay.jpg',
+      title: 'Mossel Bay',
       priceUSD: 199,
       rating: 4,
       location: 'Mossel Bay'
@@ -21,6 +23,7 @@ const HeroSection = () => {
     {
       id: 2,
       imgSrc: '../images/hotel.png',
+      title: 'Ntsitsikama',
       priceUSD: 149,
       rating: 3,
       location: 'Ntsitsikama'
@@ -28,6 +31,7 @@ const HeroSection = () => {
     {
       id: 3,
       imgSrc: '../images/hotel3.jpg',
+      title: 'Coffebay',
       priceUSD: 299,
       rating: 5,
       location: 'Coffebay'

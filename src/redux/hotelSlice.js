@@ -1,9 +1,17 @@
-import React from 'react'
 
-function HotelSlice() {
-    return (
-        <h1></h1>
-    )
-}
+import { createSlice } from '@reduxjs/toolkit';
 
-export default HotelSlice
+const hotelSlice = createSlice({
+    name: 'hotels',
+    initialState: {
+        rooms: [],
+    },
+    reducers: {
+        setRooms: (state, action) => {
+            state.rooms = action.payload;
+        },
+    },
+});
+
+export const { setRooms } = hotelSlice.actions;
+export default hotelSlice.reducer;

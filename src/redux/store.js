@@ -1,7 +1,13 @@
-import { createStore, applyMiddleware } from 'redux';
-import { thunk } from 'redux-thunk'; 
-import rootReducer from '../reducers/authReducer'; 
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../redux/authSlice'; 
+import hotelReducer from '../redux/hotelSlice';
+
+const store = configureStore({
+  reducer: {
+    auth: authReducer,
+    hotels: hotelReducer,
+  },
+});
 
 export default store;

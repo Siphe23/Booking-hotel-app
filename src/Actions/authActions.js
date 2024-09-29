@@ -1,39 +1,55 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../Actions/actionTypes';
-import axios from 'axios';
+// src/Actions/authActions.js 
+import {
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+} from "../Actions/actionTypes"; // Adjust this import to point to your actionTypes.js
+import { auth } from '../Firebase/firebase'; // Adjust according to your firebase setup
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
+// Login action
+export const login = (email, password) => async (dispatch) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-export const loginRequest = () => ({
-  type: LOGIN_REQUEST,
-});
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: {
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: LOGIN_FAIL,
+      payload: error.message,
+    });
+  }
+};
 
+// Register action
+export const register = (email, password, username) => async (dispatch) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(auth.currentUser, { displayName: username });
+    
+    const user = userCredential.user;
 
-export const loginSuccess = (user, role) => ({
-  type: LOGIN_SUCCESS,
-  payload: { user, role },
-});
-
-
-export const loginFailure = (error) => ({
-  type: LOGIN_FAILURE,
-  payload: error,
-});
-
-export const logout = () => ({
-  type: LOGOUT,
-});
-
-
-export const login = (email, password) => {
-  return async (dispatch) => {
-    dispatch(loginRequest());
-    try {
-   
-      const response = await axios.post('/api/login', { email, password });
-      const { user, role } = response.data;
-
-      dispatch(loginSuccess(user, role));
-    } catch (error) {
-      dispatch(loginFailure(error.response.data.message || 'Login failed'));
-    }
-  };
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: {
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: REGISTER_FAIL,
+      payload: error.message,
+    });
+  }
 };
