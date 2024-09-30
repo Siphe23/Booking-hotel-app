@@ -1,17 +1,25 @@
 import React from 'react'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import RegisterForm from '../components/registerForm';
-function Register() {
+import Profile from '../components/ProfileForm';
+
+function Profile() {
   return (
     <>
     <Navbar />
-    <RegisterForm /> 
+    < Profile/> 
     <Footer />
     </>
   )
 }
 
-export default Register
+export default Profile
+
+
+
+
+
+
+
 
 
