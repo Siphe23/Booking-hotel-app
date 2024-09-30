@@ -25,5 +25,7 @@ const auth = getAuth(app); // Initialize Firebase Auth
 const db = getFirestore(app); // Initialize Firestore
 const storage = getStorage(app); // Initialize Firebase Storage
 
-// Export the services
-export { auth, db, storage }; // Now you can use auth, db, and storage in your components
+// Export the auth and db services so you can use them in other files
+export { auth, db };
+
+
