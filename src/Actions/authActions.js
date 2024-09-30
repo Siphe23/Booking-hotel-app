@@ -1,11 +1,10 @@
-// src/Actions/authActions.js 
 import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-} from "../Actions/actionTypes"; // Adjust this import to point to your actionTypes.js
-import { auth } from '../Firebase/firebase'; // Adjust according to your firebase setup
+} from "../Actions/actionTypes";
+import { auth } from '../Firebase/firebase'; // Correctly import the auth service
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 // Login action
@@ -22,6 +21,10 @@ export const login = (email, password) => async (dispatch) => {
         email: user.email,
       },
     });
+
+    // Store the token in localStorage
+    const token = await user.getIdToken();
+    localStorage.setItem('token', token);
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
@@ -46,6 +49,10 @@ export const register = (email, password, username) => async (dispatch) => {
         email: user.email,
       },
     });
+
+    const token = await user.getIdToken();
+    localStorage.setItem('token', token);
+    
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,

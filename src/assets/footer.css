@@ -1,130 +1,167 @@
 footer {
-    background-color: #f3e5ab;
-    font-family: Arial, sans-serif;
-    width: 100%;
-    height:1rem;
+  background-color: #f3e5ab;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  height: 1rem;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #e0e0e0;
-    position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #e0e0e0;
+  position: relative;
+  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
 }
 
-.contact-info, .socials, .newsletter {
-    text-align: center;
-    flex: 1;
-    position: relative;
+.contact-info,
+.socials,
+.newsletter {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  min-width: 150px; /* Ensures minimum width for smaller screens */
+  margin: 10px; /* Adds spacing between elements on small screens */
 }
-
 
 .socials::before,
 .socials::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 2px; 
-    background-color: white; 
-    z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: white;
+  z-index: 1;
 }
 
 .contact-info::after {
-    right: -10px; 
+  right: -10px;
 }
 
 .socials::before {
-    left: -10px; 
+  left: -10px;
 }
 
 .socials::after {
-    right: -10px; 
+  right: -10px;
 }
 
-
 .footer-container::before {
-    display: none; 
+  display: none;
 }
 
 .socials img {
-    width: 30px;
-    margin: 0 10px;
-  }
-  
-  .newsletter form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .newsletter input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    width: 180px;
-  }
-  
-  .newsletter button {
-    padding: 5px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 0 5px 5px 0;
-  }
-  
-  .bottom-footer {
-    background-color: #ff944d;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .footer-nav {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .footer-nav li {
-    margin: 0 15px;
-  }
-  
-  .footer-nav li a {
-    text-decoration: none;
-    color: #333;
-  }
-  
-  .bottom-footer p {
-    margin: 5px 0;
-    color: #333;
+  width: 30px;
+  margin: 0 10px;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
+.newsletter form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  width: 180px;
+}
+
+.newsletter button {
+  padding: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 0 5px 5px 0;
+}
+
+.bottom-footer {
+  background-color: #ff944d;
+  padding: 10px;
+  text-align: center;
+}
+
+.footer-nav {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Allows the footer links to wrap */
+}
+
+.footer-nav li {
+  margin: 0 15px;
+}
+
+.footer-nav li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.bottom-footer p {
+  margin: 5px 0;
+  color: #333;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 #root {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 footer {
-    margin-top: auto;
+  margin-top: auto;
 }
 
+/* Responsive styles */
+@media (max-width: 768px) {
+  .footer-container {
+      flex-direction: column; /* Stack items vertically on smaller screens */
+      align-items: flex-start; /* Align items to the start */
+  }
 
+  .newsletter form {
+      flex-direction: column; /* Stack the input and button */
+      width: 100%; /* Full width for better mobile experience */
+  }
 
+  .newsletter input {
+      width: 100%; /* Full width input */
+      margin-bottom: 10px; /* Spacing between input and button */
+  }
 
+  .newsletter button {
+      width: 100%; /* Full width button */
+  }
+
+  .socials img {
+      width: 25px; /* Smaller icons on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-nav {
+      flex-direction: column; /* Stack footer links on very small screens */
+  }
+
+  .footer-nav li {
+      margin: 5px 0;
+  }
+}
 
 
 
