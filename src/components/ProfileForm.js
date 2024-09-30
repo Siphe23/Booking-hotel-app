@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Actions/authActions';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import { auth, db } from '../Firebase/firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -94,7 +92,7 @@ function Profile() {
 
   return (
     <>
-      <Navbar />
+     
       <h1 className="page-heading">{showSignup ? "Sign Up" : "Login"}</h1>
       <div className="profile-container">
         <div className="form-container">
@@ -169,7 +167,7 @@ function Profile() {
           </div>
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 }

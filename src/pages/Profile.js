@@ -1,24 +1,19 @@
-import React from 'react'
+import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Profile from '../components/ProfileForm';
+import ProfileForm from '../components/ProfileForm'; 
 
-function Profile() {
+function Profile() { 
   return (
     <>
-    <Navbar />
-    < Profile/> 
-    <Footer />
+      <Navbar />
+      <ProfileForm />  
+      <Footer />
     </>
-  )
+  );
 }
 
-export default Profile
-
-
-
-
-
+export default Profile; 
 
 
 

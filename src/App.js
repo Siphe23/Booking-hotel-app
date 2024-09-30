@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store'; 
 import Home from './pages/Home';
-import OurHotels from './pages/ourHotels'; // Ensure the casing matches the file
-import Booknow from './pages/booknow'; // Ensure the casing matches the file
-import Profile from './pages/Profile'; // Import the Profile component
+import Profile from './pages/Profile'; 
+import OurHotels from './pages/ourHotels';
+import Booknow from './pages/booknow';
 
 function App() {
   return (
@@ -24,4 +24,5 @@ function App() {
 }
 
 export default App;
+
 
