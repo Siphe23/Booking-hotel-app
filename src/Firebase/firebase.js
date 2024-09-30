@@ -26,4 +26,3 @@ const db = getFirestore(app); // Firebase Firestore (Database)
 // Export the auth and db services so you can use them in other files
 export { auth, db };
 
-
