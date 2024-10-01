@@ -16,7 +16,6 @@ function Admin() {
   const [swimmingPool, setSwimmingPool] = useState(false);
   const navigate = useNavigate();
 
-  // Effect to check authentication status
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -28,14 +27,12 @@ function Admin() {
     return () => unsubscribe(); // Cleanup subscription on unmount
   }, [navigate]);
 
-  // Logout handler
   const handleLogout = () => {
     signOut(auth).then(() => {
       navigate('/admin-login');
     });
   };
 
-  // Room submission handler
   const handleRoomSubmit = async (e) => {
     e.preventDefault();
 
@@ -72,7 +69,6 @@ function Admin() {
     }
   };
 
-  // If admin is not authenticated, return null
   if (!admin) return null; 
 
   return (
@@ -145,3 +141,4 @@ function Admin() {
 }
 
 export default Admin;
+

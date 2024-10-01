@@ -19,11 +19,9 @@ function Navbar() {
         <li><Link to="/ourhotels"><i className="fas fa-hotel"></i> Our Hotels</Link></li>
         <li><Link to="/profile"><i className="fas fa-user"></i> Profile</Link></li>
         
-        {/* Admin-specific links */}
         <li><Link to="/admin-login"><i className="fas fa-user-shield"></i> Admin Login</Link></li>
-<li><Link to="/admin"><i className="fas fa-user-cog"></i> Admin</Link></li>
+        <li><Link to="/admin"><i className="fas fa-user-cog"></i> Admin</Link></li> {/* Added Admin link */}
 
-        
         <li>
           <button className="book-now-button" onClick={handleBookNow}>
             <i className="fas fa-book"></i> Book Now

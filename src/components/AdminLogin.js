@@ -1,4 +1,4 @@
-
+// AdminLogin.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../Firebase/firebase';
@@ -13,7 +13,7 @@ function AdminLogin() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/admin');
+      navigate('/admin/profile');
     } catch (error) {
       alert('Login failed. Please try again.');
     }
