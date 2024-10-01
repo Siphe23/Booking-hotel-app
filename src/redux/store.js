@@ -1,7 +1,7 @@
-
+// src/redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../redux/authSlice'; 
-import hotelReducer from '../redux/hotelSlice';
+import authReducer from '../redux/authSlice'; // Adjust based on your actual auth reducer path
+import hotelReducer from '../redux/hotelSlice'; // Correct the path if necessary
 
 const store = configureStore({
   reducer: {
@@ -11,3 +11,4 @@ const store = configureStore({
 });
 
 export default store;
+

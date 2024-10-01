@@ -1,58 +1,63 @@
-
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f79e5b; 
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .icon h1 {
-    font-family: 'Comic Sans MS', sans-serif;
-    font-size: 24px;
-    color: black;
-  }
-  
-  .nav-links {
-    display: flex;
-    list-style-type: none;
-    gap: 20px; 
-  }
-  
-  .nav-links li {
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-links li a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-links li a i {
-    margin-right: 5px; 
-  }
-  
-  .book-now-button {
-    background-color: #5eb3d4; 
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .book-now-button i {
-    margin-right: 5px;
-  }
-  
-  .book-now-button:hover {
-    background-color: #4a9ebc; 
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f79e5b; 
+  font-family: 'Arial', sans-serif;
+}
+
+.icon h1 {
+  font-family: 'Comic Sans MS', sans-serif;
+  font-size: 24px;
+  color: black;
+}
+
+.nav-links {
+  display: flex;
+  list-style-type: none;
+  gap: 20px; 
+}
+
+.nav-links li {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li a i {
+  margin-right: 5px; 
+}
+
+.book-now-button {
+  background-color: #5eb3d4; 
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.book-now-button i {
+  margin-right: 5px;
+}
+
+.book-now-button:hover {
+  background-color: #4a9ebc; 
+}
+.link-button {
+  background: none;
+  border: none;
+  color: blue; /* or whatever color you want */
+  text-decoration: underline;
+  cursor: pointer;
+}

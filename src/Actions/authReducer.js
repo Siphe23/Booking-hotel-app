@@ -1,42 +1,26 @@
 // src/reducers/authReducer.js
-import {
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGOUT_SUCCESS,
-} from "../Actions/actionTypes"; // Import from actionTypes.js
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  user: null,
-  isAuthenticated: false,
-  error: null,
-};
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: {
+    user: null,
+    error: null,
+  },
+  reducers: {
+    login: (state, action) => {
+      state.user = action.payload; // Set the user data on successful login
+      state.error = null;
+    },
+    logout: (state) => {
+      state.user = null; // Clear user data on logout
+    },
+    setError: (state, action) => {
+      state.error = action.payload; // Set error message
+    },
+  },
+});
 
-export const authReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case LOGIN_SUCCESS:
-    case REGISTER_SUCCESS:
-      return {
-        ...state,
-        user: action.payload,
-        isAuthenticated: true,
-        error: null,
-      };
-    case LOGIN_FAIL:
-    case REGISTER_FAIL:
-      return {
-        ...state,
-        error: action.payload,
-        isAuthenticated: false,
-      };
-    case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        user: null,
-        isAuthenticated: false,
-      };
-    default:
-      return state;
-  }
-};
+export const { login, logout, setError } = authSlice.actions;
+
+export default authSlice.reducer;
