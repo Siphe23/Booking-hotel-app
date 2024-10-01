@@ -1,11 +1,9 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth"; // Import Firebase Auth
-import { getFirestore } from "firebase/firestore"; // Import Firestore
-import { getStorage } from "firebase/storage"; // Import Firebase Storage
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyB35zqc99O83jS6NZHsYXFpL8wOQ3djxRg",
   authDomain: "hotel-booking-app-a083a.firebaseapp.com",
@@ -16,16 +14,10 @@ const firebaseConfig = {
   measurementId: "G-Z5L7RFEZ5X"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-// Initialize Firebase services
-const auth = getAuth(app); // Initialize Firebase Auth
-const db = getFirestore(app); // Initialize Firestore
-const storage = getStorage(app); // Initialize Firebase Storage
-
-// Export the auth and db services so you can use them in other files
-export { auth, db };
-
+export { auth, db, storage };
 

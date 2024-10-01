@@ -1,34 +1,30 @@
-// src/pages/AdminLogin.js
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
-      // Firebase sign in
       await signInWithEmailAndPassword(auth, email, password);
-      // Redirect to admin profile
-      navigate('/admin-profile');
+      navigate('/admin');
     } catch (error) {
-      setError('Invalid email or password');
+      alert('Login failed. Please try again.');
     }
   };
 
   return (
-    <div className="login-container">
+    <div>
       <h2>Admin Login</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <label>Email</label>
+          <label>Email:</label>
           <input
             type="email"
             value={email}
@@ -37,7 +33,7 @@ function AdminLogin() {
           />
         </div>
         <div>
-          <label>Password</label>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
@@ -45,7 +41,6 @@ function AdminLogin() {
             required
           />
         </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Login</button>
       </form>
     </div>
@@ -53,3 +48,4 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
+

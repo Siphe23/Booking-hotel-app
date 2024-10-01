@@ -20,8 +20,8 @@ function Navbar() {
         <li><Link to="/profile"><i className="fas fa-user"></i> Profile</Link></li>
         
         {/* Admin-specific links */}
-        <li><Link to="/admin"><i className="fas fa-user-shield"></i> Admin Login</Link></li>
-<li><Link to="/admin/profile"><i className="fas fa-user-cog"></i> Admin Profile</Link></li>
+        <li><Link to="/admin-login"><i className="fas fa-user-shield"></i> Admin Login</Link></li>
+<li><Link to="/admin"><i className="fas fa-user-cog"></i> Admin</Link></li>
 
         
         <li>
