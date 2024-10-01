@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import '../assets/navbar.css';
 
 function Navbar() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleBookNow = () => {
-    navigate('/booknow'); 
+    navigate('/booknow');
   };
 
   return (
@@ -18,7 +18,12 @@ function Navbar() {
         <li><Link to="/home"><i className="fas fa-home"></i> Home</Link></li>
         <li><Link to="/ourhotels"><i className="fas fa-hotel"></i> Our Hotels</Link></li>
         <li><Link to="/profile"><i className="fas fa-user"></i> Profile</Link></li>
-       
+        
+        {/* Admin-specific links */}
+        <li><Link to="/admin"><i className="fas fa-user-shield"></i> Admin Login</Link></li>
+<li><Link to="/admin/profile"><i className="fas fa-user-cog"></i> Admin Profile</Link></li>
+
+        
         <li>
           <button className="book-now-button" onClick={handleBookNow}>
             <i className="fas fa-book"></i> Book Now
