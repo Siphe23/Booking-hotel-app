@@ -1,10 +1,11 @@
+// /shared/Actions/authActions.js
 import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-} from "../Actions/actionTypes";
-import { auth } from '../Firebase/firebase'; // Correctly import the auth service
+} from './actionTypes';
+import { auth } from '../Firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 // Login action

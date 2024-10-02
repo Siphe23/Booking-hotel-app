@@ -7,7 +7,9 @@ import OurHotels from './pages/ourHotels';
 import BookNow from './pages/booknow';
 import AdminDashboard from './pages/AdminDashboard'; 
 import AdminLogin from './pages/AdminLogin'; 
+import UserProfile from './pages/Profile'; 
 import PrivateRoute from './Private/PrivateRoute'; 
+import Navbar from './components/Navbar'; 
 
 function App() {
   const auth = useSelector((state) => state.auth); 
@@ -15,25 +17,37 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <Navbar />
         <Routes>
-          <Route index element={<Home />} />
+          {/* Common Home Route for All Users */}
           <Route path="/home" element={<Home />} />
-          <Route path="/ourhotels" element={<OurHotels />} />
-          <Route path="/booknow" element={<BookNow />} />
 
-          {/* Admin Dashboard Route */}
+          {/* Admin Routes */}
           {auth.isAuthenticated && auth.userRole === 'admin' && (
-            <Route 
-              path="/admin-dashboard" 
-              element={
-                <PrivateRoute role="admin">
-                  <AdminDashboard />
-                </PrivateRoute>
-              } 
-            />
+            <>
+              <Route path="/admin-home" element={<AdminLogin />} /> {/* Home for Admin showing the login form */}
+              <Route 
+                path="/admin-dashboard" 
+                element={
+                  <PrivateRoute role="admin">
+                    <AdminDashboard />
+                  </PrivateRoute>
+                } 
+              />
+              <Route path="/admin-login" element={<AdminLogin />} /> {/* Admin Login Page */}
+            </>
           )}
 
-          {/* Admin Login Route */}
+          {/* Regular User Routes */}
+          {auth.isAuthenticated && auth.userRole === 'user' && (
+            <>
+              <Route path="/ourhotels" element={<OurHotels />} />
+              <Route path="/profile" element={<UserProfile />} />
+              <Route path="/booknow" element={<BookNow />} />
+            </>
+          )}
+
+          {/* Redirect to Admin Login for Non-authenticated Users */}
           {!auth.isAuthenticated && (
             <Route path="/admin-login" element={<AdminLogin />} />
           )}
