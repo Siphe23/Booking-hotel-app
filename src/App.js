@@ -47,7 +47,7 @@ function App() {
             </>
           )}
 
-          {/* Redirect to Admin Login for Non-authenticated Users */}
+       
           {!auth.isAuthenticated && (
             <Route path="/admin-login" element={<AdminLogin />} />
           )}
