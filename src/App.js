@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider, useSelector } from 'react-redux';
@@ -58,3 +59,5 @@ function App() {
 }
 
 export default App;
+=======
+>>>>>>> 8fbc38737a06c0b487cce1ac4896d4bc5b063d00
