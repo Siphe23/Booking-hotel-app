@@ -1,11 +1,14 @@
 /* General styles */
-body, html {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
   width: 100%;
   height: 100%;
   font-family: Arial, sans-serif;
-  box-sizing: border-box;
   overflow-x: hidden;
 }
 
@@ -26,16 +29,16 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-size: cover;
   padding: 20px;
+  text-align: center;
+  background-size: cover;
 }
 
 .hero h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: #000;
-  text-align: center;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
 }
 
 /* Search bar */
@@ -95,10 +98,9 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 100%;
   max-width: 300px;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -107,14 +109,14 @@ body {
 
 .offer-card img {
   width: 100%;
-  height: auto;
+  height: 200px;
   object-fit: cover;
 }
 
 .offer-card p {
   color: #666;
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .show-more-button {
@@ -124,9 +126,8 @@ body {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  width: 40%;
-  height: 50%;
-  margin-top: 10px;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .show-more-button:hover {
@@ -143,12 +144,13 @@ body {
   display: flex;
   align-items: center;
   background-color: #f9f9f9;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 10px;
   width: 90%;
   max-width: 500px;
-  margin: 1.5rem auto;
+  margin: 2rem auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: slideCeoCard 0.5s ease-in-out;
 }
 
 .ceo-photo {
@@ -158,14 +160,40 @@ body {
   margin-right: 15px;
 }
 
+.more-info {
+  color: #666;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
 /* Animation for CEO card */
 @keyframes slideCeoCard {
   0% { opacity: 0; transform: translateY(-20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* Media queries */
 @media (min-width: 768px) {
   .ceo-card {
     width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .offer-card img {
+    height: 150px;
+  }
+
+  .search-bar input[type="text"], 
+  .search-bar input[type="date"] {
+    width: 30%;
+  }
+
+  .search-bar {
+    padding: 1rem 0.5rem;
   }
 }
