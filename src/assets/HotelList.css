@@ -5,7 +5,7 @@
 
 .rooms-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Change to 3 columns */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px;
 }
 

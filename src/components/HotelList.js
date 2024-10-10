@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setRooms } from '../redux/hotelSlice'; 
 import { db } from '../Firebase/firebase'; 
 import { collection, getDocs } from 'firebase/firestore';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage'; // Import Firebase Storage SDK
 import { useNavigate } from 'react-router-dom';
 import '../assets/HotelList.css';
 
@@ -31,7 +30,31 @@ const fallbackRooms = [
     price: 'R1200',
     breakfastIncluded: true,
     amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
-  }
+  },
+  {
+    id: 4,
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Admin-images%2Fadmin3.jpg?alt=media',
+    name: 'Presidential Suite',
+    price: 'R1200',
+    breakfastIncluded: true,
+    amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
+  },
+  {
+    id: 5,
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Admin-images%2Fadmin3.jpg?alt=media',
+    name: 'Presidential Suite',
+    price: 'R1800',
+    breakfastIncluded: true,
+    amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
+  },
+  {
+    id: 6,
+    image: 'https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Admin-images%2Fadmin3.jpg?alt=media',
+    name: 'Presidential Suite',
+    price: 'R1000',
+    breakfastIncluded: true,
+    amenities: ['wifi', 'tv', 'ac', 'car', 'pool'],
+  },
 ];
 
 function HotelList() {
@@ -42,35 +65,17 @@ function HotelList() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const roomsCollection = collection(db, 'rooms'); // Fetch 'rooms' collection from Firestore
+        const roomsCollection = collection(db, 'rooms'); // Fetching 'rooms' collection from Firestore
         const roomSnapshot = await getDocs(roomsCollection);
-        const storage = getStorage();
-
-        // Fetch the image URL for each room from Firebase Storage
-        const roomList = await Promise.all(
-          roomSnapshot.docs.map(async (doc) => {
-            const roomData = doc.data();
-            let imageUrl = '';
-
-            try {
-              const imageRef = ref(storage, roomData.image); // Assuming 'image' is the Firebase Storage reference
-              imageUrl = await getDownloadURL(imageRef); // Get the download URL from Firebase Storage
-            } catch (error) {
-              console.error('Error fetching image:', error);
-              imageUrl = roomData.image; // Use fallback image URL in case of an error
-            }
-
-            return { id: doc.id, ...roomData, image: imageUrl }; // Add image URL to room data
-          })
-        );
+        const roomList = roomSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Mapping Firestore docs to roomList
 
         if (roomList.length > 0) {
-          dispatch(setRooms(roomList)); // Update Redux state with rooms fetched from Firestore
+          dispatch(setRooms(roomList)); // Updating Redux state with rooms fetched from Firestore
         } else {
-          dispatch(setRooms(fallbackRooms)); // If no rooms fetched, use fallback data
+          dispatch(setRooms(fallbackRooms)); // If no rooms are fetched, use fallback
         }
       } catch (error) {
-        console.error('Error fetching rooms:', error);
+        console.error("Error fetching rooms:", error);
         dispatch(setRooms(fallbackRooms)); // On error, use fallback rooms
       }
     };
@@ -79,7 +84,7 @@ function HotelList() {
   }, [dispatch]);
 
   const handleBookNow = (roomId) => {
-    navigate(`/booknow?roomId=${roomId}`); // Navigate to booking page with room ID
+    navigate(`/booknow?roomId=${roomId}`); // Navigating to booking page with room ID
   };
 
   return (
