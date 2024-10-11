@@ -1,24 +1,32 @@
 const express = require('express');
-const stripe = require('stripe')('your_secret_key'); // Replace with your secret key
-const app = express();
+const Stripe = require('stripe');
+const dotenv = require('dotenv');
 const cors = require('cors');
 
+// Load environment variables from .env file
+dotenv.config();
+
+// Ensure you are using the correct secret key here
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_51Q7YPz09Ta8MClJBdGmuN1Hhvm0X1SVdeECUe8Sd0EtBzKL3sRIyLZVC06Na4p8Xe4thX6qxjxkGhov4Mm5njOLU00vYjVbOQ3');
+
+const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.post('/create-checkout-session', async (req, res) => {
-    const { amount, currency, email } = req.body;
+    const { totalPrice, email } = req.body;
+
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
                 {
                     price_data: {
-                        currency: currency,
+                        currency: 'ZAR',
                         product_data: {
                             name: 'Stubborn Attachments',
                         },
-                        unit_amount: amount,
+                        unit_amount: totalPrice * 100, // Amount in cents
                     },
                     quantity: 1,
                 },
@@ -30,8 +38,9 @@ app.post('/create-checkout-session', async (req, res) => {
 
         res.json({ id: session.id });
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
-app.listen(3000, () => console.log('Server is running on port 3000'));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -12,6 +12,7 @@ function Navbar() {
         <li><Link to="/home"><i className="fas fa-home"></i> Home</Link></li>
         <li><Link to="/ourhotels"><i className="fas fa-hotel"></i> Our Hotels</Link></li>
         <li><Link to="/profile"><i className="fas fa-user"></i> Profile</Link></li>
+        <li><Link to="/paymentForm"><i className="fas fa-user"></i> Pay Now</Link></li>
         <li>
           {/* Use Link with button styling */}
           <Link to="/booknow" className="book-now-button">

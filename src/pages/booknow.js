@@ -1,12 +1,11 @@
-// src/pages/booknow.js
-
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../Firebase/firebase';
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import PaymentForm from '../components/ProfileForm'; // Import the PaymentForm component
+import PaymentForm from '../components/PaymentForm'; // Make sure this is the correct import
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../assets/Booknow.css';
 
 function Booknow() {
@@ -23,12 +22,14 @@ function Booknow() {
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
     const [userBookings, setUserBookings] = useState([]);
-    const [showPayment, setShowPayment] = useState(false); // State to toggle payment form
+    const [showPayment, setShowPayment] = useState(false);
+    const [editingBooking, setEditingBooking] = useState(null);
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const roomPrices = {
-        1: 100, // Room Type 1: $100 per night
-        2: 150, // Room Type 2: $150 per night
-        3: 200, // Room Type 3: $200 per night
+        1: 100,
+        2: 150,
+        3: 200,
     };
 
     useEffect(() => {
@@ -40,13 +41,12 @@ function Booknow() {
                     email: user.email,
                 }));
 
-                // Fetch user's bookings
                 const bookingsQuery = query(
                     collection(db, 'bookings'),
                     where('email', '==', user.email)
                 );
                 const querySnapshot = await getDocs(bookingsQuery);
-                const bookings = querySnapshot.docs.map(doc => doc.data());
+                const bookings = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setUserBookings(bookings);
             } else {
                 setIsAuthenticated(false);
@@ -63,7 +63,6 @@ function Booknow() {
             [name]: value,
         }));
 
-        // Calculate price whenever related fields change
         if (['roomsType', 'checkIn', 'checkOut', 'persons'].includes(name)) {
             calculatePrice({ ...formData, [name]: value });
         }
@@ -87,7 +86,6 @@ function Booknow() {
         e.preventDefault();
         setLoading(true);
 
-        // Form validation
         if (!formData.email || !formData.firstName || !formData.lastName || !formData.checkIn || !formData.checkOut) {
             alert("Please fill in all required fields.");
             setLoading(false);
@@ -101,19 +99,57 @@ function Booknow() {
         }
 
         try {
-            await addDoc(collection(db, "bookings"), {
-                ...formData,
-                totalPrice,
-                timestamp: new Date(),
-            });
-
-            alert('Booking successful! Proceed to payment.');
-            setShowPayment(true); // Show the payment form
+            if (editingBooking) {
+                const bookingRef = doc(db, 'bookings', editingBooking.id);
+                await updateDoc(bookingRef, {
+                    ...formData,
+                    totalPrice,
+                });
+                alert('Booking updated successfully!');
+                setEditingBooking(null);
+            } else {
+                await addDoc(collection(db, "bookings"), {
+                    ...formData,
+                    totalPrice,
+                    timestamp: new Date(),
+                });
+                alert('Booking successful! Proceed to payment.');
+                setShowPayment(true); // Show payment section
+                navigate('/paymentForm'); // Navigate to the PaymentForm page
+            }
         } catch (error) {
             console.error("Error submitting booking: ", error);
             alert("Failed to submit the booking. Please try again.");
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleEdit = (booking) => {
+        setFormData({
+            email: booking.email,
+            firstName: booking.firstName,
+            lastName: booking.lastName,
+            persons: booking.persons,
+            roomsType: booking.roomsType,
+            checkIn: booking.checkIn,
+            checkOut: booking.checkOut,
+        });
+        setTotalPrice(booking.totalPrice);
+        setEditingBooking(booking);
+        setShowPayment(false);
+    };
+
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this booking?')) {
+            try {
+                await deleteDoc(doc(db, 'bookings', id));
+                setUserBookings(userBookings.filter((booking) => booking.id !== id));
+                alert('Booking deleted successfully!');
+            } catch (error) {
+                console.error("Error deleting booking: ", error);
+                alert("Failed to delete the booking. Please try again.");
+            }
         }
     };
 
@@ -128,7 +164,8 @@ function Booknow() {
             checkOut: '',
         });
         setTotalPrice(0);
-        setShowPayment(false); // Hide payment form after reset
+        setShowPayment(false);
+        setEditingBooking(null);
     };
 
     return (
@@ -219,19 +256,33 @@ function Booknow() {
                                 />
                             </div>
                             <button type="submit" disabled={loading}>
-                                {loading ? 'Submitting...' : 'Book Now'}
+                                {loading ? 'Submitting...' : editingBooking ? 'Update Booking' : 'Book Now'}
                             </button>
                         </form>
                         {showPayment && (
                             <div className="payment-section">
-                                <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+                                <h3>Total Price: R{totalPrice.toFixed(2)}</h3>
                                 <PaymentForm totalPrice={totalPrice} email={formData.email} resetForm={resetForm} />
                             </div>
                         )}
                     </>
                 ) : (
-                    <p>Please log in to book a room.</p>
+                    <div>
+                        <p>Please log in to book a room.</p>
+                    </div>
                 )}
+                <h3>Your Bookings</h3>
+                <ul className="booking-list">
+                    {userBookings.map((booking) => (
+                        <li key={booking.id}>
+                            <span>{booking.firstName} {booking.lastName}</span>
+                            <span> - Room Type: {booking.roomsType}</span>
+                            <span> - Total Price: R{booking.totalPrice.toFixed(2)}</span>
+                            <button onClick={() => handleEdit(booking)}>Edit</button>
+                            <button onClick={() => handleDelete(booking.id)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
             </div>
             <Footer />
         </div>
