@@ -1,29 +1,79 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import '../assets/PaymentForm.css';
 
-const PaymentForm = () => {
+const PaymentForm = ({ amount, customerEmail, onPaymentSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const [clientSecret, setClientSecret] = useState('');
+  const [message, setMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    
+    const fetchClientSecret = async () => {
+      const response = await fetch('/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount, customerEmail }),
+      });
+
+      const data = await response.json();
+      setClientSecret(data.clientSecret); 
+    };
+
+    if (amount && customerEmail) {
+      fetchClientSecret();
+    }
+  }, [amount, customerEmail]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      return; // Stripe.js has not loaded yet.
+    if (!stripe || !elements || !clientSecret) {
+      return; 
     }
 
     const cardElement = elements.getElement(CardElement);
+    setIsLoading(true);
 
-    // Proceed with payment handling logic using Stripe API
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+      },
+    });
+
+    if (error) {
+      setMessage(error.message);
+    } else if (paymentIntent.status === 'succeeded') {
+      setMessage("Payment successful");
+      onPaymentSuccess(); 
+    }
+
+    setIsLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button type="submit" disabled={!stripe}>
-        Pay
-      </button>
-    </form>
+    <>
+     <Navbar />
+<h1 className="animated-heading">PAY NOW</h1>
+<form className="payment-form" onSubmit={handleSubmit}>
+  <h2>Payment</h2>
+  <div className="card-element">
+    <CardElement />
+  </div>
+  <button type="submit" disabled={isLoading || !stripe || !clientSecret}>
+    {isLoading ? <div className="spinner" /> : "Pay"}
+  </button>
+  {message && <div>{message}</div>}
+</form>
+<Footer />
+
+    </>
   );
 };
 

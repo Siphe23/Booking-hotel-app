@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { auth } from '../Firebase/firebase'; // Ensure the correct Firebase imports
+import { auth } from '../Firebase/firebase'; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
+import '../assets/style.css'; 
 
 const ProfileForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formDetails, setFormDetails] = useState({
     email: '',
     password: '',
-    username: '', // Only used for signup
+    username: '', 
   });
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -19,26 +20,21 @@ const ProfileForm = () => {
   };
 
   const toggleForm = () => {
-    setIsLogin((prev) => !prev); // Toggle between login and signup
+    setIsLogin((prev) => !prev); 
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (isLogin) {
-        // Handle login
         await signInWithEmailAndPassword(auth, formDetails.email, formDetails.password);
         alert('Login successful!');
-        navigate('/home'); // Navigate to home page after login
+        navigate('/home'); 
       } else {
-        // Handle signup
-        const userCredential = await createUserWithEmailAndPassword(auth, formDetails.email, formDetails.password);
-        const user = userCredential.user;
+        await createUserWithEmailAndPassword(auth, formDetails.email, formDetails.password);
         alert('Signup successful! Welcome, ' + formDetails.username);
-        navigate('/home'); // Navigate to home page after signup
+        navigate('/home'); 
       }
-
-      // Reset form
       setFormDetails({ email: '', password: '', username: '' });
     } catch (error) {
       console.error('Error during ' + (isLogin ? 'login' : 'signup') + ': ', error.message);
@@ -47,54 +43,62 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="profile-form">
-      <h2>{isLogin ? 'Login' : 'Signup'}</h2>
-      <form onSubmit={handleSubmit}>
-        {!isLogin && (
-          <div>
-            <label htmlFor="username">User Name</label>
+    <>
+      <div className='heading'>
+        Please Login or Signup
+      </div>
+      <div className="profile-form">
+        <h2>{isLogin ? 'Login' : 'Signup'}</h2>
+        <form onSubmit={handleSubmit}>
+          {!isLogin && (
+            <div className="input-group">
+              <label htmlFor="username">User Name</label>
+              <input
+                type="text"
+                id="username"
+                value={formDetails.username}
+                onChange={handleChange}
+                placeholder="Enter your full name"
+                required={!isLogin}
+              />
+            </div>
+          )}
+          <div className="input-group">
+            <label htmlFor="email">Email Address</label>
             <input
-              type="text"
-              id="username"
-              value={formDetails.username}
+              type="email"
+              id="email"
+              value={formDetails.email}
               onChange={handleChange}
-              placeholder="Enter your full name"
-              required={!isLogin}
+              placeholder="Enter your email"
+              required
             />
           </div>
-        )}
-        <div>
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            value={formDetails.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={formDetails.password}
-            onChange={handleChange}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-        <button type="submit">{isLogin ? 'Login' : 'Signup'}</button>
-      </form>
-      <p>
-        {isLogin ? "Don't have an account? " : 'Already have an account? '}
-        <button type="button" onClick={toggleForm}>
-          {isLogin ? 'Sign Up' : 'Login'}
-        </button>
-      </p>
-    </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={formDetails.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <button type="submit" className="submit-button">
+            {isLogin ? 'Login' : 'Signup'}
+          </button>
+        </form>
+        <p>
+          {isLogin ? "Don't have an account? " : 'Already have an account? '}
+          <button type="button" className="toggle-button" onClick={toggleForm}>
+            {isLogin ? 'Sign Up' : 'Login'}
+          </button>
+        </p>
+      </div>
+    </>
   );
-}
+};
 
 export default ProfileForm;
+

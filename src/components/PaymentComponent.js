@@ -7,12 +7,12 @@ const PaymentComponent = () => {
     const paymentInfo = useSelector((state) => state.payment.paymentInfo);
 
     const handlePayment = (paymentDetails) => {
-        // Assuming paymentDetails is an object containing payment info
-        dispatch(setPaymentInfo(paymentDetails)); // Save payment info
+     
+        dispatch(setPaymentInfo(paymentDetails)); 
     };
 
     const handleClear = () => {
-        dispatch(clearPaymentInfo()); // Clear payment info
+        dispatch(clearPaymentInfo()); 
     };
 
     return (

@@ -1,4 +1,3 @@
-/* General body style */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
@@ -7,7 +6,6 @@ body {
     padding: 0;
 }
 
-/* Container for the booking form */
 .booking-container {
     width: 800px;
     margin: 0 auto;
@@ -18,7 +16,6 @@ body {
     margin-top: 40px;
 }
 
-/* Header styling */
 h2 {
     text-align: center;
     font-size: 2rem;
@@ -26,13 +23,11 @@ h2 {
     color: #333;
 }
 
-/* Booking form styling */
 .booking-form {
     display: flex;
     flex-direction: column;
 }
 
-/* Input group styling */
 .input-group {
     margin-bottom: 20px;
 }
@@ -53,13 +48,11 @@ h2 {
     transition: border-color 0.3s ease;
 }
 
-/* Focus state */
 .input-group input:focus {
     border-color: #007bff;
     outline: none;
 }
 
-/* Styling for name input fields */
 .name-fields {
     display: flex;
     gap: 10px;
@@ -69,7 +62,6 @@ h2 {
     flex: 1;
 }
 
-/* Book now button */
 .book-now-btn {
     background-color: #007bff;
     color: #fff;
@@ -81,12 +73,10 @@ h2 {
     transition: background-color 0.3s ease;
 }
 
-/* Hover state for the button */
 .book-now-btn:hover {
     background-color: #0056b3;
 }
 
-/* Payment section styling */
 .payment-section {
     margin-top: 20px;
     text-align: center;
@@ -96,7 +86,6 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Add this to Booknow.css */
 .proceed-button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -106,7 +95,7 @@ h2 {
     font-size: 1rem;
     border-radius: 5px;
     margin-top: 20px;
-} /* Add the missing closing brace */
+} 
 
 .total-price {
     margin-top: 20px;
@@ -120,7 +109,6 @@ h2 {
     background-color: #0056b3;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .booking-container {
         padding: 20px;

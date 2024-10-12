@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import './checkoutForm.css'; // Correct import for the CSS file
+import '../assets/checkoutForm.css'; // Correct import for the CSS file
 
 const CARD_ELEMENT_OPTIONS = {
   style: {

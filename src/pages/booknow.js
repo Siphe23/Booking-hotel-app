@@ -4,8 +4,7 @@ import { auth, db } from '../Firebase/firebase';
 import { collection, addDoc, query, where, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import PaymentForm from '../components/PaymentForm'; // Make sure this is the correct import
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import '../assets/Booknow.css';
 
 function Booknow() {
@@ -18,13 +17,13 @@ function Booknow() {
         checkIn: '',
         checkOut: '',
     });
+    const [errors, setErrors] = useState({}); // State for error messages
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
     const [userBookings, setUserBookings] = useState([]);
-    const [showPayment, setShowPayment] = useState(false);
     const [editingBooking, setEditingBooking] = useState(null);
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
 
     const roomPrices = {
         1: 100,
@@ -82,18 +81,27 @@ function Booknow() {
         }
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.firstName) newErrors.firstName = "First name is required.";
+        if (!formData.lastName) newErrors.lastName = "Last name is required.";
+        if (!formData.checkIn) newErrors.checkIn = "Check-in date is required.";
+        if (!formData.checkOut) newErrors.checkOut = "Check-out date is required.";
+        if (new Date(formData.checkIn) >= new Date(formData.checkOut)) {
+            newErrors.checkOut = "Check-out date must be after the check-in date.";
+        }
+        if (formData.persons < 1) newErrors.persons = "At least one person is required.";
+        return newErrors;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setErrors({}); // Reset errors
 
-        if (!formData.email || !formData.firstName || !formData.lastName || !formData.checkIn || !formData.checkOut) {
-            alert("Please fill in all required fields.");
-            setLoading(false);
-            return;
-        }
-
-        if (new Date(formData.checkIn) >= new Date(formData.checkOut)) {
-            alert("Check-out date must be after the check-in date.");
+        const validationErrors = validateForm();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
             setLoading(false);
             return;
         }
@@ -114,7 +122,6 @@ function Booknow() {
                     timestamp: new Date(),
                 });
                 alert('Booking successful! Proceed to payment.');
-                setShowPayment(true); // Show payment section
                 navigate('/paymentForm'); // Navigate to the PaymentForm page
             }
         } catch (error) {
@@ -137,7 +144,6 @@ function Booknow() {
         });
         setTotalPrice(booking.totalPrice);
         setEditingBooking(booking);
-        setShowPayment(false);
     };
 
     const handleDelete = async (id) => {
@@ -153,21 +159,6 @@ function Booknow() {
         }
     };
 
-    const resetForm = () => {
-        setFormData({
-            email: formData.email,
-            firstName: '',
-            lastName: '',
-            persons: 1,
-            roomsType: 1,
-            checkIn: '',
-            checkOut: '',
-        });
-        setTotalPrice(0);
-        setShowPayment(false);
-        setEditingBooking(null);
-    };
-
     return (
         <div className="booknow">
             <Navbar />
@@ -175,114 +166,65 @@ function Booknow() {
                 <h2>Book Your Room</h2>
                 {isAuthenticated ? (
                     <>
-                        <form className="booking-form" onSubmit={handleSubmit}>
-                            <div className="name-fields">
-                                <div className="input-group">
-                                    <label>First Name</label>
-                                    <input
-                                        type="text"
-                                        name="firstName"
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                        placeholder="First Name"
-                                        required
-                                    />
-                                </div>
-                                <div className="input-group">
-                                    <label>Last Name</label>
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                        placeholder="Last Name"
-                                        required
-                                    />
-                                </div>
-                            </div>
+                        <form onSubmit={handleSubmit}>
                             <div className="input-group">
                                 <label>Email</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="Email"
-                                    required
-                                    readOnly
-                                />
+                                <input type="email" name="email" value={formData.email} readOnly />
+                            </div>
+                            <div className="input-group">
+                                <label>First Name</label>
+                                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+                                {errors.firstName && <span className="error">{errors.firstName}</span>}
+                            </div>
+                            <div className="input-group">
+                                <label>Last Name</label>
+                                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+                                {errors.lastName && <span className="error">{errors.lastName}</span>}
                             </div>
                             <div className="input-group">
                                 <label>Number of Persons</label>
-                                <input
-                                    type="number"
-                                    name="persons"
-                                    value={formData.persons}
-                                    onChange={handleChange}
-                                    placeholder="Number of Persons"
-                                    min="1"
-                                />
+                                <input type="number" name="persons" value={formData.persons} onChange={handleChange} min="1" required />
+                                {errors.persons && <span className="error">{errors.persons}</span>}
                             </div>
                             <div className="input-group">
-                                <label>Room Type (1-3)</label>
-                                <input
-                                    type="number"
-                                    name="roomsType"
-                                    value={formData.roomsType}
-                                    onChange={handleChange}
-                                    placeholder="Room Type (1-3)"
-                                    min="1"
-                                    max="3"
-                                />
+                                <label>Room Type</label>
+                                <select name="roomsType" value={formData.roomsType} onChange={handleChange} required>
+                                    <option value="1">Single</option>
+                                    <option value="2">Double</option>
+                                    <option value="3">Suite</option>
+                                </select>
                             </div>
                             <div className="input-group">
-                                <label>Check-in Date</label>
-                                <input
-                                    type="date"
-                                    name="checkIn"
-                                    value={formData.checkIn}
-                                    onChange={handleChange}
-                                    required
-                                />
+                                <label>Check-In Date</label>
+                                <input type="date" name="checkIn" value={formData.checkIn} onChange={handleChange} required />
+                                {errors.checkIn && <span className="error">{errors.checkIn}</span>}
                             </div>
                             <div className="input-group">
-                                <label>Check-out Date</label>
-                                <input
-                                    type="date"
-                                    name="checkOut"
-                                    value={formData.checkOut}
-                                    onChange={handleChange}
-                                    required
-                                />
+                                <label>Check-Out Date</label>
+                                <input type="date" name="checkOut" value={formData.checkOut} onChange={handleChange} required />
+                                {errors.checkOut && <span className="error">{errors.checkOut}</span>}
                             </div>
-                            <button type="submit" disabled={loading}>
-                                {loading ? 'Submitting...' : editingBooking ? 'Update Booking' : 'Book Now'}
-                            </button>
+                            <button type="submit" disabled={loading}>{loading ? 'Loading...' : (editingBooking ? 'Update Booking' : 'Book Now')}</button>
                         </form>
-                        {showPayment && (
-                            <div className="payment-section">
-                                <h3>Total Price: R{totalPrice.toFixed(2)}</h3>
-                                <PaymentForm totalPrice={totalPrice} email={formData.email} resetForm={resetForm} />
+
+                        {userBookings.length > 0 && (
+                            <div className="user-bookings">
+                                <h3>Your Bookings</h3>
+                                <ul>
+                                    {userBookings.map((booking) => (
+                                        <li key={booking.id}>
+                                            {`${booking.firstName} ${booking.lastName} - ${booking.roomsType} - ${booking.totalPrice}`}
+                                            <button onClick={() => handleEdit(booking)}>Edit</button>
+                                            <button onClick={() => handleDelete(booking.id)}>Delete</button>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         )}
                     </>
                 ) : (
-                    <div>
-                        <p>Please log in to book a room.</p>
-                    </div>
+                    <div>Please log in to make a booking.</div>
                 )}
-                <h3>Your Bookings</h3>
-                <ul className="booking-list">
-                    {userBookings.map((booking) => (
-                        <li key={booking.id}>
-                            <span>{booking.firstName} {booking.lastName}</span>
-                            <span> - Room Type: {booking.roomsType}</span>
-                            <span> - Total Price: R{booking.totalPrice.toFixed(2)}</span>
-                            <button onClick={() => handleEdit(booking)}>Edit</button>
-                            <button onClick={() => handleDelete(booking.id)}>Delete</button>
-                        </li>
-                    ))}
-                </ul>
             </div>
             <Footer />
         </div>
@@ -290,4 +232,3 @@ function Booknow() {
 }
 
 export default Booknow;
-   

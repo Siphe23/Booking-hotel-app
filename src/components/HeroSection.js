@@ -3,28 +3,27 @@ import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import '../assets/hero.css';
 
 const HeroSection = () => {
-  const conversionRate = 18; // Example conversion rate
+  const conversionRate = 18;
   const storage = getStorage();
   
   const [ceoImages, setCeoImages] = useState([]);
   const [offerImages, setOfferImages] = useState([]);
   const [currentCeoIndex, setCurrentCeoIndex] = useState(0);
-  const [expandedOffer, setExpandedOffer] = useState(null); // Tracks which offer is expanded
+  const [expandedOffer, setExpandedOffer] = useState(null); 
 
-  // State for search inputs
+
   const [searchLocation, setSearchLocation] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [filteredOffers, setFilteredOffers] = useState([]);
 
-  // Memoize the 'offers' array
+
   const offers = useMemo(() => [
     { id: 1, imgSrc: 'hotel/hotel2.jpg', title: 'Mossel Bay', priceUSD: 199, rating: 4, location: 'Mossel Bay', description: 'A stunning coastal town known for its beautiful beaches and rich history.' },
     { id: 2, imgSrc: 'hotel/hotel2.jpg', title: 'Ntsitsikama', priceUSD: 149, rating: 3, location: 'Ntsitsikama', description: 'A nature lover’s paradise with hiking trails and lush forests.' },
     { id: 3, imgSrc: 'hotel/hotel2.jpg', title: 'Coffebay', priceUSD: 299, rating: 5, location: 'Coffebay', description: 'A remote getaway with breathtaking views of the coastline and pristine beaches.' },
   ], []);
 
-  // Memoize the 'ceos' array
   const ceos = useMemo(() => [
     { name: 'Jane Doe', occupation: 'CEO' },
     { name: 'John Smith', occupation: 'CTO' },
@@ -51,15 +50,15 @@ const HeroSection = () => {
       }
       setOfferImages(offerUrls);
 
-      // Fetch CEO images from Firebase Storage
+     
       for (let i = 1; i <= ceos.length; i++) {
         try {
-          // Assuming the images are named ceo1.jpg, ceo2.jpg, ..., ceo5.jpg in the 'ceos' folder
+        
           const url = await getDownloadURL(ref(storage, `ceos/ceo${i}.jpg`));
           ceoUrls.push(url);
         } catch (error) {
           console.error(`Error fetching image for ${ceos[i - 1].name}:`, error);
-          // Push a placeholder image if the fetching fails
+        
           ceoUrls.push('path/to/placeholder/image.jpg');
         }
       }
@@ -72,7 +71,7 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCeoIndex((prevIndex) => (prevIndex + 1) % ceos.length);
-    }, 5000); // Rotates CEO image every 5 seconds
+    }, 5000); 
     return () => clearInterval(interval);
   }, [ceos.length]);
 
@@ -89,12 +88,12 @@ const HeroSection = () => {
     setFilteredOffers(filtered);
   };
 
-  // Toggle function for "Show More"
+  
   const toggleShowMore = (offerId) => {
     if (expandedOffer === offerId) {
-      setExpandedOffer(null); // Collapse if already expanded
+      setExpandedOffer(null);
     } else {
-      setExpandedOffer(offerId); // Expand new offer
+      setExpandedOffer(offerId); 
     }
   };
 
@@ -104,7 +103,7 @@ const HeroSection = () => {
     <section className="hero">
       <h1>Welcome to HotelHub – Your Gateway to Exceptional Stays</h1>
 
-      {/* Search Bar */}
+
       <div className="search-bar">
         <input
           type="text"
@@ -125,7 +124,6 @@ const HeroSection = () => {
         <button onClick={handleSearch}>Search</button>
       </div>
 
-      {/* Offer Cards */}
       <section className="offers">
         {(filteredOffers.length > 0 ? filteredOffers : offers).map((offer, index) => {
           const priceZAR = (offer.priceUSD * conversionRate).toFixed(2);
@@ -161,7 +159,7 @@ const HeroSection = () => {
         })}
       </section>
 
-      {/* CEO Section */}
+   
       <div className="ceo-card">
         {ceoImages.length > 0 ? (
           <>

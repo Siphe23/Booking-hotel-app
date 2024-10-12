@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    paymentInfo: null, // Store payment information
-    error: null, // Store error message if needed
+    paymentInfo: null, 
+    error: null, 
 };
 
 const paymentSlice = createSlice({
@@ -10,21 +10,21 @@ const paymentSlice = createSlice({
     initialState,
     reducers: {
         setPaymentInfo: (state, action) => {
-            state.paymentInfo = action.payload; // Set payment information
+            state.paymentInfo = action.payload; 
         },
         clearPaymentInfo: (state) => {
-            state.paymentInfo = null; // Clear payment information
+            state.paymentInfo = null; 
         },
         setPaymentError: (state, action) => {
-            state.error = action.payload; // Set error message
+            state.error = action.payload; 
         },
         clearPaymentError: (state) => {
-            state.error = null; // Clear error message
+            state.error = null; 
         },
     },
 });
 
-// Export the actions
+
 export const {
     setPaymentInfo,
     clearPaymentInfo,
@@ -32,5 +32,5 @@ export const {
     clearPaymentError,
 } = paymentSlice.actions;
 
-// Export the reducer
+
 export default paymentSlice.reducer;

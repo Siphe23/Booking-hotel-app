@@ -10,10 +10,10 @@ const PrivateRoute = ({ children, role }) => {
     }
 
     if (role && auth.userRole !== role) {
-        return <Navigate to="/" />; // Redirect if not the right role
+        return <Navigate to="/" />; 
     }
 
-    return children; // If authenticated and has the right role, render the children
+    return children;
 };
 
 export default PrivateRoute;

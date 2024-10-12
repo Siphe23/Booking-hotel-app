@@ -3,8 +3,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from '../pages/checkoutForm';
 
-// Load Stripe outside of the component render to avoid re-creating the stripe object
-const stripePromise = loadStripe('your-publishable-key');
+const stripePromise = loadStripe('pk_test_51Q7YPz09Ta8MClJBUH2kbUiZN5oCcKm2J5qp3qZu7p5PN6hDt9CPrfZHwdI1swVFymlreTXSl3aLRfDTLNzSgTLu00z98j4NHf');
 
 function CheckoutPage({ bookingAmount, customerEmail }) {
   return (
@@ -18,3 +17,4 @@ function CheckoutPage({ bookingAmount, customerEmail }) {
 }
 
 export default CheckoutPage;
+

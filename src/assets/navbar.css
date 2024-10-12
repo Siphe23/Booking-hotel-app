@@ -58,7 +58,7 @@
 .link-button {
   background: none;
   border: none;
-  color: blue; /* or whatever color you want */
+  color: blue; 
   text-decoration: underline;
   cursor: pointer;
 }

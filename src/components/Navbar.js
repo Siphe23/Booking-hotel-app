@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="icon">
-        <h1>Hotelhub</h1> {/* Apply h1 inside the icon div */}
+        <h1>Hotelhub</h1> 
       </div>
       <ul className="nav-links">
         <li><Link to="/home"><i className="fas fa-home"></i> Home</Link></li>
@@ -14,7 +14,7 @@ function Navbar() {
         <li><Link to="/profile"><i className="fas fa-user"></i> Profile</Link></li>
         <li><Link to="/paymentForm"><i className="fas fa-user"></i> Pay Now</Link></li>
         <li>
-          {/* Use Link with button styling */}
+          
           <Link to="/booknow" className="book-now-button">
             <i className="fas fa-book"></i> Book Now
           </Link>

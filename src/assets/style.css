@@ -1,1 +1,120 @@
-    
+/* Wrapper for full-page centering */
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  background-color: #f0f0f0; /* Optional: Background color for the entire page */
+}
+
+/* Profile form styling */
+.profile-form {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Form heading (Login or Signup) */
+.profile-form h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Input group styles */
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* Submit button styling */
+.submit-button {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Toggle button styling for switching between login and signup */
+.toggle-button {
+  background: none;
+  border: none;
+  color: #007BFF;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.toggle-button:hover {
+  color: #0056b3;
+}
+
+/* Paragraph styling for the toggle link */
+p {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Centered heading styling */
+.heading {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  border-radius: 10px;
+  animation: fadeInSlideDown 2s ease-out forwards;
+}
+
+.heading h1 {
+  font-size: 90px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 2px;
+  opacity: 0;
+  font-weight: bolder;
+}
+
+/* Animation for the heading */
+@keyframes fadeInSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
