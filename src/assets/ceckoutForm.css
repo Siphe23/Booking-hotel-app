@@ -1,0 +1,45 @@
+.checkout-form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-element {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    background-color: #fff;
+  }
+  
+  .submit-button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error-message {
+    color: #e5424d;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .success-message {
+    color: #28a745;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
