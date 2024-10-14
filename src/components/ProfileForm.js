@@ -11,7 +11,7 @@ const ProfileForm = () => {
     password: '',
     username: '', 
   });
-
+  const [signupMessage, setSignupMessage] = useState(''); // For signup success message
   const navigate = useNavigate(); 
 
   const handleChange = (e) => {
@@ -27,24 +27,28 @@ const ProfileForm = () => {
     e.preventDefault();
     try {
       if (isLogin) {
+        // Login logic
         await signInWithEmailAndPassword(auth, formDetails.email, formDetails.password);
         alert('Login successful!');
         navigate('/home'); 
       } else {
+        // Signup logic
         await createUserWithEmailAndPassword(auth, formDetails.email, formDetails.password);
-        alert('Signup successful! Welcome, ' + formDetails.username);
-        navigate('/home'); 
+        setSignupMessage('Thank you for signing up, you may now log in.');
+        setFormDetails({ email: '', password: '', username: '' });
+        // After signup, redirect to login page
+        setIsLogin(true);
       }
-      setFormDetails({ email: '', password: '', username: '' });
     } catch (error) {
       console.error('Error during ' + (isLogin ? 'login' : 'signup') + ': ', error.message);
-      alert('Error: ' + error.message);
+      alert('Error: ' + error.message); // Display the Firebase error
     }
   };
 
   return (
     <>
       <div className='heading'>
+        {signupMessage && <p className="signup-success">{signupMessage}</p>} {/* Show signup message if available */}
         Please Login or Signup
       </div>
       <div className="profile-form">
@@ -101,4 +105,3 @@ const ProfileForm = () => {
 };
 
 export default ProfileForm;
-

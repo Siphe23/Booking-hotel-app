@@ -12,7 +12,7 @@ footer {
   padding: 20px;
   background-color: #e0e0e0;
   position: relative;
-  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+  flex-wrap: wrap;
 }
 
 .contact-info,
@@ -21,8 +21,8 @@ footer {
   text-align: center;
   flex: 1;
   position: relative;
-  min-width: 150px; /* Ensures minimum width for smaller screens */
-  margin: 10px; /* Adds spacing between elements on small screens */
+  min-width: 150px; 
+  margin: 10px; 
 }
 
 .socials::before,
@@ -90,7 +90,7 @@ footer {
   margin: 10px 0;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Allows the footer links to wrap */
+  flex-wrap: wrap; 
 }
 
 .footer-nav li {
@@ -127,35 +127,43 @@ footer {
   margin-top: auto;
 }
 
-/* Responsive styles */
+.socials a {
+  margin-right: 15px;
+  color: #333;
+}
+
+.socials a:hover {
+  color: #007bff;
+}
+
 @media (max-width: 768px) {
   .footer-container {
-      flex-direction: column; /* Stack items vertically on smaller screens */
-      align-items: flex-start; /* Align items to the start */
+      flex-direction: column; 
+      align-items: flex-start; 
   }
 
   .newsletter form {
-      flex-direction: column; /* Stack the input and button */
-      width: 100%; /* Full width for better mobile experience */
+      flex-direction: column; 
+      width: 100%; 
   }
 
   .newsletter input {
-      width: 100%; /* Full width input */
-      margin-bottom: 10px; /* Spacing between input and button */
+      width: 100%; 
+      margin-bottom: 10px; 
   }
 
   .newsletter button {
-      width: 100%; /* Full width button */
+      width: 100%; 
   }
 
   .socials img {
-      width: 25px; /* Smaller icons on mobile */
+      width: 25px; 
   }
 }
 
 @media (max-width: 480px) {
   .footer-nav {
-      flex-direction: column; /* Stack footer links on very small screens */
+      flex-direction: column; 
   }
 
   .footer-nav li {

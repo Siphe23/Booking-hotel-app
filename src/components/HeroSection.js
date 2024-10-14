@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'; 
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { FaMapMarkerAlt } from 'react-icons/fa'; // Importing location icon
 import '../assets/hero.css';
 
 const HeroSection = () => {
@@ -11,12 +12,10 @@ const HeroSection = () => {
   const [currentCeoIndex, setCurrentCeoIndex] = useState(0);
   const [expandedOffer, setExpandedOffer] = useState(null); 
 
-
   const [searchLocation, setSearchLocation] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [filteredOffers, setFilteredOffers] = useState([]);
-
 
   const offers = useMemo(() => [
     { id: 1, imgSrc: 'hotel/hotel2.jpg', title: 'Mossel Bay', priceUSD: 199, rating: 4, location: 'Mossel Bay', description: 'A stunning coastal town known for its beautiful beaches and rich history.' },
@@ -32,13 +31,11 @@ const HeroSection = () => {
     { name: 'Linda Davis', occupation: 'Assistant Manager' }
   ], []);
 
-  // Fetch images on component mount
   useEffect(() => {
     const fetchImages = async () => {
       const offerUrls = [];
       const ceoUrls = [];
 
-      // Fetch offer images
       for (const offer of offers) {
         try {
           const url = await getDownloadURL(ref(storage, offer.imgSrc));
@@ -50,15 +47,12 @@ const HeroSection = () => {
       }
       setOfferImages(offerUrls);
 
-     
       for (let i = 1; i <= ceos.length; i++) {
         try {
-        
           const url = await getDownloadURL(ref(storage, `ceos/ceo${i}.jpg`));
           ceoUrls.push(url);
         } catch (error) {
           console.error(`Error fetching image for ${ceos[i - 1].name}:`, error);
-        
           ceoUrls.push('path/to/placeholder/image.jpg');
         }
       }
@@ -88,7 +82,6 @@ const HeroSection = () => {
     setFilteredOffers(filtered);
   };
 
-  
   const toggleShowMore = (offerId) => {
     if (expandedOffer === offerId) {
       setExpandedOffer(null);
@@ -102,7 +95,6 @@ const HeroSection = () => {
   return (
     <section className="hero">
       <h1>Welcome to HotelHub – Your Gateway to Exceptional Stays</h1>
-
 
       <div className="search-bar">
         <input
@@ -136,7 +128,7 @@ const HeroSection = () => {
               <p>Starting from R{priceZAR}/night</p>
               <div className="offer-rating">{renderStars(offer.rating)}</div>
               <div className="offer-location">
-                <img src="./images/location-icon.png" alt="Location Icon" className="location-icon" />
+                <FaMapMarkerAlt className="location-icon" /> {/* React icon here */}
                 <span>{offer.location}</span>
               </div>
               
@@ -159,7 +151,6 @@ const HeroSection = () => {
         })}
       </section>
 
-   
       <div className="ceo-card">
         {ceoImages.length > 0 ? (
           <>

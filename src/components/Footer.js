@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { db } from '../Firebase/firebase'; 
+import { db } from '../Firebase/firebase';  // Make sure Firebase is configured properly
 import { collection, addDoc } from 'firebase/firestore';
-import '../assets/footer.css'; 
+import { FaFacebook, FaTwitter } from 'react-icons/fa';  // Ensure correct import of icons
+import '../assets/footer.css';  // Ensure correct path to your CSS file
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -16,9 +17,9 @@ const Footer = () => {
     }
 
     try {
-      
       await addDoc(collection(db, 'subscriptions'), {
         email: email,
+        subscribedAt: new Date(),
       });
       setMessage('Thank you for subscribing!');
       setEmail('');
@@ -40,10 +41,10 @@ const Footer = () => {
         <div className="socials">
           <h4>Follow Us</h4>
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-            <img src="/path-to-your-icons/facebook-icon.png" alt="Facebook" />
+            <FaFacebook size={30} />
           </a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-            <img src="/path-to-your-icons/twitter-icon.png" alt="Twitter" />
+            <FaTwitter size={30} />
           </a>
         </div>
 
