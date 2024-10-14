@@ -11,7 +11,7 @@ const ProfileForm = () => {
     password: '',
     username: '', 
   });
-  const [signupMessage, setSignupMessage] = useState(''); // For signup success message
+  const [signupMessage, setSignupMessage] = useState('');
   const navigate = useNavigate(); 
 
   const handleChange = (e) => {
