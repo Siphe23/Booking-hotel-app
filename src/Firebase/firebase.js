@@ -1,8 +1,6 @@
-
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore"; 
+import { getAuth } from "firebase/auth"; // Import Auth
 
 const firebaseConfig = {
   apiKey: "AIzaSyB35zqc99O83jS6NZHsYXFpL8wOQ3djxRg",
@@ -10,11 +8,13 @@ const firebaseConfig = {
   projectId: "hotel-booking-app-a083a",
   storageBucket: "hotel-booking-app-a083a.appspot.com",
   messagingSenderId: "386005281931",
-  appId: "1:386005281931:web:6b9927b8ec93d56541b88e",
-  measurementId: "G-Z5L7RFEZ5X"
+  appId: "1:386005281931:web:6e2a5b475b9383f341b88e",
+  measurementId: "G-SJE0KBMDPC"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+const db = getFirestore(app); // Initialize Firestore
+const auth = getAuth(app); // Initialize Auth
+
+export { db, auth }; // Export db and auth for use in your application

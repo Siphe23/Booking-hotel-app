@@ -1,13 +1,12 @@
-/* Wrapper for full-page centering */
+
 .profile-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Full viewport height */
-  background-color: #f0f0f0; /* Optional: Background color for the entire page */
+  min-height: 100vh; 
+  background-color: #f0f0f0; 
 }
 
-/* Profile form styling */
 .profile-form {
   background-color: #ffffff;
   padding: 40px;
@@ -18,14 +17,14 @@
   text-align: center;
 }
 
-/* Form heading (Login or Signup) */
+
 .profile-form h2 {
   margin-bottom: 20px;
   font-size: 24px;
   color: #333;
 }
 
-/* Input group styles */
+
 .input-group {
   margin-bottom: 20px;
   text-align: left;
@@ -52,7 +51,7 @@
   outline: none;
 }
 
-/* Submit button styling */
+ 
 .submit-button {
   background-color: #007BFF;
   color: white;
@@ -69,7 +68,7 @@
   background-color: #0056b3;
 }
 
-/* Toggle button styling for switching between login and signup */
+
 .toggle-button {
   background: none;
   border: none;
@@ -83,13 +82,13 @@
   color: #0056b3;
 }
 
-/* Paragraph styling for the toggle link */
+
 p {
   margin-top: 20px;
   font-size: 14px;
 }
 
-/* Centered heading styling */
+
 .heading {
   text-align: center;
   margin-bottom: 30px;
@@ -107,7 +106,7 @@ p {
   font-weight: bolder;
 }
 
-/* Animation for the heading */
+
 @keyframes fadeInSlideDown {
   0% {
     opacity: 0;

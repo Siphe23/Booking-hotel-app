@@ -17,7 +17,7 @@ function Booknow() {
         checkIn: '',
         checkOut: '',
     });
-    const [errors, setErrors] = useState({}); // State for error messages
+    const [errors, setErrors] = useState({}); 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -97,7 +97,7 @@ function Booknow() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setErrors({}); // Reset errors
+        setErrors({}); 
 
         const validationErrors = validateForm();
         if (Object.keys(validationErrors).length > 0) {
@@ -122,7 +122,7 @@ function Booknow() {
                     timestamp: new Date(),
                 });
                 alert('Booking successful! Proceed to payment.');
-                navigate('/paymentForm'); // Navigate to the PaymentForm page
+                navigate('/paymentForm'); 
             }
         } catch (error) {
             console.error("Error submitting booking: ", error);

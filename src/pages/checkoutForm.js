@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import '../assets/checkoutForm.css'; // Correct import for the CSS file
+import '../assets/checkoutForm.css'; 
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
-      color: '#333',  // Text color for card input
+      color: '#333', 
       fontFamily: 'Arial, sans-serif',
       fontSize: '16px',
       '::placeholder': {
-        color: '#888',  // Placeholder color
+        color: '#888',  
       },
     },
     invalid: {
-      color: '#e5424d',  // Error color
+      color: '#e5424d',  
     },
   },
 };
@@ -40,7 +40,7 @@ function CheckoutForm({ bookingAmount, customerEmail }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        amount: bookingAmount * 100,  // Amount in cents
+        amount: bookingAmount * 100,  
         customerEmail,
       }),
     });
