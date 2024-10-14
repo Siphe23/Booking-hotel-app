@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { db } from '../Firebase/firebase';  // Make sure Firebase is configured properly
+import { db } from '../Firebase/firebase';  
 import { collection, addDoc } from 'firebase/firestore';
-import { FaFacebook, FaTwitter } from 'react-icons/fa';  // Ensure correct import of icons
-import '../assets/footer.css';  // Ensure correct path to your CSS file
+import { FaFacebook, FaTwitter } from 'react-icons/fa';  
+import '../assets/footer.css';  
 
 const Footer = () => {
   const [email, setEmail] = useState('');

@@ -65,18 +65,18 @@ function HotelList() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const roomsCollection = collection(db, 'rooms'); // Fetching 'rooms' collection from Firestore
+        const roomsCollection = collection(db, 'rooms'); 
         const roomSnapshot = await getDocs(roomsCollection);
-        const roomList = roomSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Mapping Firestore docs to roomList
+        const roomList = roomSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); 
 
         if (roomList.length > 0) {
-          dispatch(setRooms(roomList)); // Updating Redux state with rooms fetched from Firestore
+          dispatch(setRooms(roomList)); 
         } else {
-          dispatch(setRooms(fallbackRooms)); // If no rooms are fetched, use fallback
+          dispatch(setRooms(fallbackRooms)); 
         }
       } catch (error) {
         console.error("Error fetching rooms:", error);
-        dispatch(setRooms(fallbackRooms)); // On error, use fallback rooms
+        dispatch(setRooms(fallbackRooms)); 
       }
     };
 
@@ -84,7 +84,7 @@ function HotelList() {
   }, [dispatch]);
 
   const handleBookNow = (roomId) => {
-    navigate(`/booknow?roomId=${roomId}`); // Navigating to booking page with room ID
+    navigate(`/booknow?roomId=${roomId}`); 
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'; 
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import { FaMapMarkerAlt } from 'react-icons/fa'; // Importing location icon
+import { FaMapMarkerAlt } from 'react-icons/fa'; 
 import '../assets/hero.css';
 
 const HeroSection = () => {
@@ -128,7 +128,7 @@ const HeroSection = () => {
               <p>Starting from R{priceZAR}/night</p>
               <div className="offer-rating">{renderStars(offer.rating)}</div>
               <div className="offer-location">
-                <FaMapMarkerAlt className="location-icon" /> {/* React icon here */}
+                <FaMapMarkerAlt className="location-icon" /> 
                 <span>{offer.location}</span>
               </div>
               
