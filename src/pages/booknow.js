@@ -17,7 +17,7 @@ function Booknow() {
         checkIn: '',
         checkOut: '',
     });
-    const [errors, setErrors] = useState({}); 
+    const [errors, setErrors] = useState({});
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -50,6 +50,7 @@ function Booknow() {
             } else {
                 setIsAuthenticated(false);
                 setUserBookings([]);
+                navigate('/login'); // Redirect to login if not authenticated
             }
         });
         return () => unsubscribe();
@@ -161,7 +162,7 @@ function Booknow() {
 
     return (
         <div className="booknow">
-            <Navbar />
+            <Navbar isAuthenticated={isAuthenticated} />
             <div className="booking-container">
                 <h2>Book Your Room</h2>
                 {isAuthenticated ? (
@@ -204,26 +205,28 @@ function Booknow() {
                                 <input type="date" name="checkOut" value={formData.checkOut} onChange={handleChange} required />
                                 {errors.checkOut && <span className="error">{errors.checkOut}</span>}
                             </div>
-                            <button type="submit" disabled={loading}>{loading ? 'Loading...' : (editingBooking ? 'Update Booking' : 'Book Now')}</button>
-                        </form>
-
-                        {userBookings.length > 0 && (
-                            <div className="user-bookings">
-                                <h3>Your Bookings</h3>
-                                <ul>
-                                    {userBookings.map((booking) => (
-                                        <li key={booking.id}>
-                                            {`${booking.firstName} ${booking.lastName} - ${booking.roomsType} - ${booking.totalPrice}`}
-                                            <button onClick={() => handleEdit(booking)}>Edit</button>
-                                            <button onClick={() => handleDelete(booking.id)}>Delete</button>
-                                        </li>
-                                    ))}
-                                </ul>
+                            <div className="input-group">
+                                <label>Total Price: ${totalPrice}</label>
                             </div>
-                        )}
+                            <button type="submit" disabled={loading}>
+                                {editingBooking ? 'Update Booking' : 'Book Now'}
+                            </button>
+                        </form>
+                        <div className="user-bookings">
+                            <h3>Your Bookings</h3>
+                            <ul>
+                                {userBookings.map(booking => (
+                                    <li key={booking.id}>
+                                        <span>{`${booking.firstName} ${booking.lastName} - ${booking.roomsType} - ${booking.checkIn} to ${booking.checkOut}`}</span>
+                                        <button onClick={() => handleEdit(booking)}>Edit</button>
+                                        <button onClick={() => handleDelete(booking.id)}>Delete</button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </>
                 ) : (
-                    <div>Please log in to make a booking.</div>
+                    <p>Please log in to make a booking.</p>
                 )}
             </div>
             <Footer />

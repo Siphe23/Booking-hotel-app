@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# Hotel Booking App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+**HotelHub** is a comprehensive hotel booking application that provides users with a seamless experience for finding and booking hotels. Users can view available hotels, manage their profiles, and make payments easily. For administrators, HotelHub offers a powerful dashboard to manage hotels, users, and system statistics efficiently.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### User Features
+- **Home Page**: A welcoming interface for users to start their hotel booking journey.
+- **Our Hotels**: Browse a list of available hotels with detailed descriptions and images.
+- **Profile**: Users can manage their personal information and booking history.
+- **Pay Now**: Secure payment options for confirmed bookings.
+- **Book Now**: Effortlessly book rooms with real-time availability.
+- **Contact Information**:
+  - **Email**: [info@hotelhub.com](mailto:info@hotelhub.com)
+  - **Phone**: +27 123 456 789
+- **Follow Us**: Connect with us on social media for updates.
+- **Newsletter Subscription**: Users can subscribe to our newsletter by entering their email address.
 
-### `npm start`
+### Admin Features
+- **Admin Home Page**: Centralized dashboard for managing the application.
+- **Dashboard**: Access to system statistics and user management tools.
+- **Profile Management**: Admins can view and edit their profiles.
+- **Login / Sign Up**: Secure authentication for admin access.
+- **Recent Updates**:
+  - Newly implemented user registration system.
+  - Ongoing bug fixes and performance improvements.
+  - New analytics features available in the dashboard for better decision-making.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Figma Designs
+Explore the design mockups for the HotelHub app on Figma:
+- [Figma Design Link](https://www.figma.com/proto/qK3URJLECsMsiJB0GtkVsH/Untitled?node-id=0-1&t=ZLwFUdpGddQEypQD-1)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Screenshots
+Here are some screenshots of the HotelHub application:
 
-### `npm test`
+![Home Page](src/media/hotel.png)
+*Home Page*
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Our Hotels](src/media/rooms.pngg)
+*Our Hotels Page*
 
-### `npm run build`
+![User Profile](src/media/)
+*User Profile Page*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Installation
+1.  repository:
+   ```bash
+   git clone https://github.com/Siphe23/Booking-hotel-app.git
