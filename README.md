@@ -37,10 +37,12 @@ Here are some screenshots of the HotelHub application:
 ![Home Page](src/media/hotel.png)
 *Home Page*
 
-![Our Hotels](src/media/rooms.pngg)
+![Our Hotels](src/media/rooms.png)
 *Our Hotels Page*
 
-![User Profile](src/media/)
+![User Profile](src/media/book.png)
+*footer
+![User Profile](src/media/footr.png)
 *User Profile Page*
 
 ## Installation
