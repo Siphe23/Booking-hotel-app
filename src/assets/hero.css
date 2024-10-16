@@ -1,198 +1,139 @@
-
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
-}
-
-body {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-
 .hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  padding: 2rem;
   text-align: center;
-  background-size: cover;
 }
-
-.hero h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #000;
-  margin: 1.5rem 0;
-}
-
 
 .search-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #e5f0f8;
-  padding: 1rem;
-  border-radius: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 90%;
-  flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
-.search-bar input[type="text"],
-.search-bar input[type="date"] {
-  border: none;
-  padding: 0.8rem;
-  border-radius: 30px;
-  margin-right: 10px;
-  width: 15%;
-  min-width: 150px;
-  text-align: center;
-  background-color: #b5d8e8;
-  font-size: 1rem;
+.search-bar input {
+  padding: 0.5rem;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .search-bar button {
-  background-color: #ff8a47;
-  color: white;
-  padding: 0.8rem 2rem;
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #007bff; /* Keep the blue border */
+  background-color: white; /* White background */
+  color: #007bff; /* Blue text color */
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  margin-left: 1rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .search-bar button:hover {
-  background-color: #e97b3a;
+  background-color: #007bff; /* Blue background on hover */
+  color: white; /* White text on hover */
 }
-
 
 .offers {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-  margin: 2rem 0;
-  gap: 20px;
-  width: 100%;
+  justify-content: center;
 }
 
 .offer-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  max-width: 300px;
-  text-align: center;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.offer-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.offer-card p {
-  color: #666;
-  font-size: 1rem;
-  margin: 1rem 0;
-}
-
-.show-more-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.show-more-button:hover {
-  background-color: #0056b3;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 1rem;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
 .offer-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
 
-
-.ceo-card {
-  display: flex;
-  align-items: center;
-  background-color: #f9f9f9;
-  padding: 1.5rem;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 500px;
-  margin: 2rem auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  animation: slideCeoCard 0.5s ease-in-out;
+.offer-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
-.ceo-photo {
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  margin-right: 15px;
+.show-more-button {
+  padding: 0.5rem 1rem;
+  background-color: #28a745; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.show-more-button:hover {
+  background-color: #218838; /* Darker green on hover */
 }
 
 .more-info {
-  color: #666;
-  font-size: 1rem;
-  margin-top: 10px;
+  margin-top: 1rem;
+  text-align: left;
 }
 
-@keyframes slideCeoCard {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
+.more-info ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-@media (min-width: 768px) {
-  .ceo-card {
-    width: 50%;
-  }
+.more-info li {
+  margin-bottom: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2rem;
-  }
+/* CEO Section Styling */
+.ceo-card {
+  margin-top: 2rem;
+  display: flex;
+  width: 99%;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9; /* Light background for contrast */
+  border: 1px solid #ddd; /* Border for better visibility */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem; /* Padding inside the CEO card */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow */
+}
 
-  .offer-card img {
-    height: 150px;
-  }
+.ceo-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* Circular image */
+  margin-right: 1rem; /* Space between image and text */
+  object-fit: cover; /* Maintain aspect ratio */
+}
 
-  .search-bar input[type="text"], 
-  .search-bar input[type="date"] {
-    width: 30%;
-  }
+.ceo-details {
+  text-align: left; /* Align text to the left */
+}
 
-  .search-bar {
-    padding: 1rem 0.5rem;
-  }
+.ceo-details h4 {
+  margin: 0; 
+  font-size: 1.2rem; /* Slightly larger font for name */
+  color: #333; /* Darker text for name */
+}
+
+.ceo-details p {
+  margin: 0; 
+  color: #555; /* Gray for occupation */
+  font-style: italic; /* Italic style for emphasis */
+}
+.share-button, .favourites-button {
+  padding: 10px;
+  margin-top: 10px; /* Space above the buttons */
+  background-color: #28a745; /* Green for share button */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer on hover */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.share-button:hover, .favourites-button:hover {
+  background-color: #218838; /* Darker green on hover */
 }
