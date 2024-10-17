@@ -1,10 +1,10 @@
-/* hero.css */
+
 
 .hero {
   padding: 20px;
  
   font-family: Arial, sans-serif;
-  color: #333; /* Text color */
+  color: #333; 
 }
 
 h1 {
@@ -27,7 +27,7 @@ h1 {
 
 .search-bar button {
   padding: 10px 15px;
-  background-color: #6200ea; /* Button color */
+  background-color: #6200ea; 
   color: white;
   border: none;
   border-radius: 5px;
@@ -35,13 +35,15 @@ h1 {
 }
 
 .search-bar button:hover {
-  background-color: #3700b3; /* Button hover color */
+  background-color: #3700b3; 
 }
-
 .offers {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  justify-content: center;
+  margin: 0 auto; 
+  max-width: 1000px; 
 }
 
 .offer-card {
@@ -54,7 +56,7 @@ h1 {
 }
 
 .offer-card:hover {
-  transform: scale(1.02); /* Scale effect on hover */
+  transform: scale(1.02); 
 }
 
 .offer-image {
@@ -84,23 +86,57 @@ h1 {
   color: #6200ea;
   cursor: pointer;
 }
-
-.ceo-card {
-  margin-top: 40px;
+/* Styling for the h2 */
+.ceo-section h2 {
+  font-size: 20px; /* Reduced size */
+  font-weight: 700;
   text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem; /* Reduced margin */
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-.ceo-images {
+/* Styling for the CEO section */
+
+/* Container for CEO card */
+.ceo-container {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 15px; /* Reduced padding */
+  border-radius: 8px; /* Slightly smaller radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+  max-width: 200px; /* Smaller width */
+  margin: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.ceo-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin: 10px;
-  object-fit: cover;
-  border: 2px solid #ddd; /* Optional border */
+.ceo-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Reduced hover effect */
 }
+
+/* CEO image styling */
+.ceo-image {
+  width: 80px; /* Reduced size */
+  height: 80px; /* Set fixed height */
+  border-radius: 50%;
+  margin-bottom: 1rem; /* Reduced margin */
+}
+
+/* CEO name styling */
+.ceo-container h3 {
+  font-size: 1.2rem; /* Reduced font size */
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* CEO occupation styling */
+.ceo-container p {
+  font-size: 0.9rem; /* Smaller font */
+  color: #777;
+}
+

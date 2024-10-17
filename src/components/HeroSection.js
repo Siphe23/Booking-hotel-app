@@ -9,9 +9,11 @@ import { useRatings } from '../context/RatingsContext';
 const HeroSection = () => {
   const conversionRate = 18;
   const storage = getStorage();
+  
   const { userRatings, updateRating } = useRatings();
 
   const [offerImages, setOfferImages] = useState([]);
+  const [ceoImages, setCeoImages] = useState([]); // State to store CEO image URLs
   const [currentCeoIndex, setCurrentCeoIndex] = useState(0);
   const [favourites, setFavourites] = useState([]);
   const [showMore, setShowMore] = useState({}); 
@@ -22,7 +24,7 @@ const HeroSection = () => {
 
   const offers = useMemo(() => [
     {
-      id: 1,
+      id: 1,   
       imgSrc: 'hotel/hotel2.jpg',
       title: 'Mossel Bay',
       priceUSD: 199,
@@ -54,32 +56,54 @@ const HeroSection = () => {
   ], []);
 
   const ceos = useMemo(() => [
-    { name: 'Jane Doe', occupation: 'CEO', imgSrc: 'path/to/jane-image.jpg' },
-    { name: 'John Smith', occupation: 'CTO', imgSrc: 'path/to/john-image.jpg' },
-    { name: 'Emily Johnson', occupation: 'CFO', imgSrc: 'path/to/emily-image.jpg' },
-    { name: 'Michael Brown', occupation: 'Operations Manager', imgSrc: 'path/to/michael-image.jpg' },
-    { name: 'Linda Davis', occupation: 'Assistant Manager', imgSrc: 'path/to/linda-image.jpg' },
+    { name: 'Jane Doe', occupation: 'CEO', imgSrc: 'ceos/ceo1.jpg' },
+    { name: 'John Smith', occupation: 'CTO', imgSrc: 'ceos/ceo2.jpg' },
+    { name: 'Emily Johnson', occupation: 'CFO', imgSrc: 'ceos/ceo3.jpg' },
+    { name: 'Michael Brown', occupation: 'Operations Manager', imgSrc: 'ceos/ceo4.jpg' },
+    { name: 'Linda Davis', occupation: 'Assistant Manager', imgSrc: 'ceos/ceo5.jpg' },
   ], []);
   
+
   useEffect(() => {
-    const fetchImages = async () => {
+    const fetchOfferImages = async () => {
       try {
         const offerUrls = await Promise.all(
           offers.map(async (offer) =>
             getDownloadURL(ref(storage, offer.imgSrc)).catch(() => {
               console.error(`Error fetching image for ${offer.title}`);
-              return 'path/to/placeholder/image.jpg'; // Fallback image
+              return 'path/to/placeholder/image.jpg'; 
             })
           )
         );
         setOfferImages(offerUrls);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        console.error('Error fetching offer images:', error);
       }
     };
 
-    fetchImages();
+    fetchOfferImages();
   }, [offers, storage]);
+
+  useEffect(() => {
+  
+    const fetchCeoImages = async () => {
+      try {
+        const ceoUrls = await Promise.all(
+          ceos.map(async (ceo) =>
+            getDownloadURL(ref(storage, ceo.imgSrc)).catch(() => {
+              console.error(`Error fetching image for ${ceo.name}`);
+              return 'path/to/placeholder/image.jpg'; // Handle broken image case
+            })
+          )
+        );
+        setCeoImages(ceoUrls);
+      } catch (error) {
+        console.error('Error fetching CEO images:', error);
+      }
+    };
+    
+    fetchCeoImages();
+  }, [ceos, storage]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -193,16 +217,22 @@ const HeroSection = () => {
           );
         })}
       </section>
-  
+
       <section className="ceo-section">
-        <div className="ceo-info">
-          <img src={ceos[currentCeoIndex].imgSrc} alt={ceos[currentCeoIndex].name} className="ceo-image" />
-          <h3>{ceos[currentCeoIndex].name}</h3>
-          <p>{ceos[currentCeoIndex].occupation}</p>
-        </div>
-      </section>
-  
-      <ToastContainer />
+  <h2>Meet Our Team</h2>
+  <div className="ceo-container">
+    <img
+      src={ceoImages[currentCeoIndex]}
+      alt={ceos[currentCeoIndex].name}
+      className="ceo-image"
+    />
+    <h3>{ceos[currentCeoIndex].name}</h3>
+    <p>{ceos[currentCeoIndex].occupation}</p>
+  </div>
+</section>
+
+      
+      <ToastContainer position="top-center" />
     </section>
   );
 };
