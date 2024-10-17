@@ -1,0 +1,40 @@
+.favorites {
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for better contrast */
+  }
+  
+  .favorite-hotel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff; /* White background for hotel cards */
+  }
+  
+  .favorite-hotel-image {
+    width: 100px; /* Fixed width for images */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 15px;
+    border-radius: 5px; /* Optional: rounded corners for images */
+  }
+  
+  .hotel-info {
+    flex-grow: 1; /* Make the hotel info section take remaining space */
+  }
+  
+  .add-button, .share-button, .show-more-button {
+    margin-top: 5px;
+    padding: 8px 12px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-button:hover, .share-button:hover, .show-more-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
