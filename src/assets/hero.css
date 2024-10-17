@@ -1,139 +1,106 @@
+/* hero.css */
+
 .hero {
-  padding: 2rem;
+  padding: 20px;
+ 
+  font-family: Arial, sans-serif;
+  color: #333; /* Text color */
+}
+
+h1 {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .search-bar {
-  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .search-bar input {
-  padding: 0.5rem;
-  width: 300px;
+  padding: 10px;
+  margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 .search-bar button {
-  padding: 0.5rem 1rem;
-  border: 1px solid #007bff; /* Keep the blue border */
-  background-color: white; /* White background */
-  color: #007bff; /* Blue text color */
+  padding: 10px 15px;
+  background-color: #6200ea; /* Button color */
+  color: white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 1rem;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .search-bar button:hover {
-  background-color: #007bff; /* Blue background on hover */
-  color: white; /* White text on hover */
+  background-color: #3700b3; /* Button hover color */
 }
 
 .offers {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .offer-card {
-  background-color: white;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
-  margin: 1rem;
-  padding: 1rem;
-  width: 250px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
 }
 
 .offer-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.02); /* Scale effect on hover */
 }
 
 .offer-image {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-radius: 5px;
+}
+
+.offer-rating {
+  margin: 10px 0;
+}
+
+.offer-location {
+  display: flex;
+  align-items: center;
+}
+
+.offer-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 }
 
 .show-more-button {
-  padding: 0.5rem 1rem;
-  background-color: #28a745; /* Green background */
-  color: white;
+  background: transparent;
   border: none;
-  border-radius: 5px;
+  color: #6200ea;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.show-more-button:hover {
-  background-color: #218838; /* Darker green on hover */
-}
-
-.more-info {
-  margin-top: 1rem;
-  text-align: left;
-}
-
-.more-info ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.more-info li {
-  margin-bottom: 0.5rem;
-}
-
-/* CEO Section Styling */
 .ceo-card {
-  margin-top: 2rem;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.ceo-images {
   display: flex;
-  width: 99%;
-  align-items: center;
   justify-content: center;
-  background-color: #f9f9f9; /* Light background for contrast */
-  border: 1px solid #ddd; /* Border for better visibility */
-  border-radius: 8px; /* Rounded corners */
-  padding: 1rem; /* Padding inside the CEO card */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow */
+  flex-wrap: wrap;
 }
 
 .ceo-photo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%; /* Circular image */
-  margin-right: 1rem; /* Space between image and text */
-  object-fit: cover; /* Maintain aspect ratio */
-}
-
-.ceo-details {
-  text-align: left; /* Align text to the left */
-}
-
-.ceo-details h4 {
-  margin: 0; 
-  font-size: 1.2rem; /* Slightly larger font for name */
-  color: #333; /* Darker text for name */
-}
-
-.ceo-details p {
-  margin: 0; 
-  color: #555; /* Gray for occupation */
-  font-style: italic; /* Italic style for emphasis */
-}
-.share-button, .favourites-button {
-  padding: 10px;
-  margin-top: 10px; /* Space above the buttons */
-  background-color: #28a745; /* Green for share button */
-  color: white; /* Text color */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer on hover */
-  transition: background-color 0.3s; /* Smooth transition */
-}
-
-.share-button:hover, .favourites-button:hover {
-  background-color: #218838; /* Darker green on hover */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 10px;
+  object-fit: cover;
+  border: 2px solid #ddd; /* Optional border */
 }

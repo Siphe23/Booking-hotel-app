@@ -1,26 +1,36 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-// Create the RatingsContext
 const RatingsContext = createContext();
 
-export const useRatings = () => {
-  return useContext(RatingsContext); // Custom hook to use the RatingsContext
-};
-
-// Provider component
 export const RatingsProvider = ({ children }) => {
   const [userRatings, setUserRatings] = useState({});
+  const [favourites, setFavourites] = useState([]);
 
-  const updateRating = (offerId, rating) => {
+  const updateRating = (offerId, newRating) => {
     setUserRatings((prevRatings) => ({
       ...prevRatings,
-      [offerId]: rating,
+      [offerId]: newRating,
     }));
   };
 
+  const toggleFavourite = (offerId) => {
+    setFavourites((prevFavourites) => {
+      if (prevFavourites.includes(offerId)) {
+        return prevFavourites.filter((id) => id !== offerId);
+      }
+      return [...prevFavourites, offerId];
+    });
+  };
+
   return (
-    <RatingsContext.Provider value={{ userRatings, updateRating }}>
+    <RatingsContext.Provider value={{ userRatings, updateRating, favourites, toggleFavourite }}>
       {children}
     </RatingsContext.Provider>
   );
 };
+
+export const useRatings = () => {
+  return useContext(RatingsContext);
+};
+
+export default RatingsContext;
