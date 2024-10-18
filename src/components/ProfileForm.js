@@ -27,23 +27,21 @@ const ProfileForm = () => {
     e.preventDefault();
     try {
       if (isLogin) {
-      
-        await signInWithEmailAndPassword(auth, formDetails.email, formDetails.password);
+        await signInWithEmailAndPassword(auth, formDetails.email, formDetails.password); // Check this part
         alert('Login successful!');
         navigate('/home'); 
       } else {
-    
-        await createUserWithEmailAndPassword(auth, formDetails.email, formDetails.password);
-        setSignupMessage('Thank you for signing up, you may now log in.');
-        setFormDetails({ email: '', password: '', username: '' });
-     
-        setIsLogin(true);
+        await createUserWithEmailAndPassword(auth, formDetails.email, formDetails.password); // Signup process
+        alert('Signup successful!');
+        navigate('/personal'); // Redirect to personal details form
       }
     } catch (error) {
-      console.error('Error during ' + (isLogin ? 'login' : 'signup') + ': ', error.message);
+      console.error('Error during ' + (isLogin ? 'login' : 'signup') + ': ', error.message); // Error logged here
       alert('Error: ' + error.message); 
     }
   };
+  
+  
 
   return (
     <>

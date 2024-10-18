@@ -1,3 +1,4 @@
+// src/components/Navbar.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth'; 
@@ -6,11 +7,19 @@ import '../assets/navbar.css';
 
 function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userDetails, setUserDetails] = useState(null); // Store user details
   const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsAuthenticated(!!user); // Simplified user authentication check
+      if (user) {
+        const storedDetails = JSON.parse(localStorage.getItem('userDetails'));
+        setUserDetails(storedDetails); // Set user details from local storage
+        setIsAuthenticated(true);
+      } else {
+        setUserDetails(null);
+        setIsAuthenticated(false);
+      }
     });
     return () => unsubscribe();
   }, []);
@@ -18,6 +27,7 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       await auth.signOut();
+      localStorage.removeItem('userDetails'); // Clear user details from local storage
       navigate('/'); 
     } catch (error) {
       console.error("Error signing out: ", error);
@@ -32,7 +42,7 @@ function Navbar() {
       <ul className="nav-links">
         <li><Link to="/home"><i className="fas fa-home"></i> Home</Link></li>
         <li><Link to="/ourhotels"><i className="fas fa-hotel"></i> Our Hotels</Link></li>
-        <li><Link to="/profile"><i className="fas fa-user"></i> Profile</Link></li>
+        <li><Link to="/userprofile" state={userDetails}><i className="fas fa-user"></i> Profile</Link></li>
         <li>
           {isAuthenticated ? (
             <>
@@ -43,6 +53,13 @@ function Navbar() {
               <button onClick={handleLogout} className="btn btn-default">
                 <i className="fas fa-sign-out-alt"></i> Logout
               </button>
+              {userDetails && (
+                <img 
+                  src={userDetails.profilePicture} 
+                  alt="Profile" 
+                  style={{ width: '40px', borderRadius: '50%', marginLeft: '10px' }} 
+                />
+              )}
             </>
           ) : (
             <>
