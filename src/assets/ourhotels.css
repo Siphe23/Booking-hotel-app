@@ -11,13 +11,16 @@ body {
   0% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2F3d-rendered-image-woman-relaxing-sun_1066261-56027.jpg?alt=media'); 
   }
-  33% {
+  25% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fpeop.png.jpg?alt=media'); 
   }
-  66% {
+  50% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fre.png.jpg?alt=media'); 
   }
+  75% {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fhotel1.png'); 
+  }
   100% {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Ftee.png.jpg?alt=media'); 
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fhotel.png'); 
   }
 }
