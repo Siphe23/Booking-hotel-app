@@ -107,3 +107,22 @@
 .amenity-icon.ac::before { content: '❄️'; }
 .amenity-icon.car::before { content: '🚗'; }
 .amenity-icon.pool::before { content: '🏊'; }
+
+.no-rooms-message {
+    font-size: 18px;
+    color: #ff4c4c; 
+    margin: 20px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .rooms-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .rooms-grid {
+        grid-template-columns: 1fr; /* 1 column on small screens */
+    }
+}
