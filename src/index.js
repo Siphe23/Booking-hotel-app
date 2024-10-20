@@ -1,16 +1,13 @@
-// Import React (only once)
+// src/index.js
 import React from 'react';
-// Import createRoot from react-dom/client
-import { createRoot } from 'react-dom/client'; 
-import App from './App'; // Import your main App component
-import { RatingsProvider } from './context/RatingsContext'; // Import the RatingsProvider
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store'; // Ensure this path is correct
+import App from './App';
 
-// Create root using createRoot
-const root = createRoot(document.getElementById('root')); 
-
-// Render the App component wrapped in RatingsProvider
-root.render(
-    <RatingsProvider>
+ReactDOM.render(
+    <Provider store={store}>
         <App />
-    </RatingsProvider>
+    </Provider>,
+    document.getElementById('root')
 );

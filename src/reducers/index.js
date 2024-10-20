@@ -1,9 +1,13 @@
-import { combineReducers } from 'redux';
-import authReducer from '../reducers/authReducer';
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from '../redux/store'; // Ensure this path is correct
+import App from './App';
 
-const rootReducer = combineReducers({
-    auth: authReducer,
-   
-});
-
-export default rootReducer;
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
