@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { collection, addDoc, query, where, getDocs, deleteDoc, updateDoc, doc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../Firebase/firebase';
-import { collection, addDoc, query, where, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { db, auth } from '../Firebase/firebase'; 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useNavigate } from 'react-router-dom'; 
 import '../assets/Booknow.css';
 
 function Booknow() {
@@ -50,11 +50,11 @@ function Booknow() {
             } else {
                 setIsAuthenticated(false);
                 setUserBookings([]);
-                navigate('/login'); // Redirect to login if not authenticated
+                navigate('/login');
             }
         });
         return () => unsubscribe();
-    }, []);
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -98,7 +98,7 @@ function Booknow() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setErrors({}); 
+        setErrors({});
 
         const validationErrors = validateForm();
         if (Object.keys(validationErrors).length > 0) {
@@ -108,55 +108,30 @@ function Booknow() {
         }
 
         try {
-            if (editingBooking) {
-                const bookingRef = doc(db, 'bookings', editingBooking.id);
-                await updateDoc(bookingRef, {
-                    ...formData,
-                    totalPrice,
-                });
-                alert('Booking updated successfully!');
-                setEditingBooking(null);
-            } else {
-                await addDoc(collection(db, "bookings"), {
-                    ...formData,
-                    totalPrice,
-                    timestamp: new Date(),
-                });
-                alert('Booking successful! Proceed to payment.');
-                navigate('/paymentForm'); 
-            }
+            const bookingData = {
+                ...formData,
+                totalPrice,
+            };
+
+            const docRef = await addDoc(collection(db, "bookings"), {
+                ...bookingData,
+                timestamp: new Date(),
+            });
+
+            alert('Booking successful! Proceed to payment.');
+
+            // Navigate to booking details with the new booking information
+            navigate('/bookingDetails', {
+                state: {
+                    booking: { id: docRef.id, ...bookingData }, // Pass the new booking details
+                },
+            });
+
         } catch (error) {
             console.error("Error submitting booking: ", error);
             alert("Failed to submit the booking. Please try again.");
         } finally {
             setLoading(false);
-        }
-    };
-
-    const handleEdit = (booking) => {
-        setFormData({
-            email: booking.email,
-            firstName: booking.firstName,
-            lastName: booking.lastName,
-            persons: booking.persons,
-            roomsType: booking.roomsType,
-            checkIn: booking.checkIn,
-            checkOut: booking.checkOut,
-        });
-        setTotalPrice(booking.totalPrice);
-        setEditingBooking(booking);
-    };
-
-    const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this booking?')) {
-            try {
-                await deleteDoc(doc(db, 'bookings', id));
-                setUserBookings(userBookings.filter((booking) => booking.id !== id));
-                alert('Booking deleted successfully!');
-            } catch (error) {
-                console.error("Error deleting booking: ", error);
-                alert("Failed to delete the booking. Please try again.");
-            }
         }
     };
 
@@ -209,21 +184,9 @@ function Booknow() {
                                 <label>Total Price: ${totalPrice}</label>
                             </div>
                             <button type="submit" disabled={loading}>
-                                {editingBooking ? 'Update Booking' : 'Book Now'}
+                                Book Now
                             </button>
                         </form>
-                        <div className="user-bookings">
-                            <h3>Your Bookings</h3>
-                            <ul>
-                                {userBookings.map(booking => (
-                                    <li key={booking.id}>
-                                        <span>{`${booking.firstName} ${booking.lastName} - ${booking.roomsType} - ${booking.checkIn} to ${booking.checkOut}`}</span>
-                                        <button onClick={() => handleEdit(booking)}>Edit</button>
-                                        <button onClick={() => handleDelete(booking.id)}>Delete</button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
                     </>
                 ) : (
                     <p>Please log in to make a booking.</p>
