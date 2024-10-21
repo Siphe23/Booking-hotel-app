@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'; 
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRoomsFromFirestore } from '../redux/hotelSlice'; // This should now match
+import { fetchRoomsFromFirestore } from '../redux/hotelSlice';
 import { useNavigate } from 'react-router-dom'; 
 import '../assets/HotelList.css';
 
@@ -8,11 +8,11 @@ function HotelList() {
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
     const rooms = useSelector((state) => state.hotels.rooms) || [];
-const status = useSelector((state) => state.hotels.status);
-const error = useSelector((state) => state.hotels.error);
+    const status = useSelector((state) => state.hotels.status);
+    const error = useSelector((state) => state.hotels.error);
 
     useEffect(() => {
-        dispatch(fetchRoomsFromFirestore()); // Fetch rooms when the component mounts
+        dispatch(fetchRoomsFromFirestore());
     }, [dispatch]);
 
     if (status === 'loading') {
@@ -32,19 +32,20 @@ const error = useSelector((state) => state.hotels.error);
                 {rooms.length > 0 ? (
                     rooms.map((room) => (
                         <div key={room.id} className="room-card">
-                            <img src={room.image} alt={room.name} className="room-image" />
+                            <img src={room.imageUrl} alt={room.name} className="room-image" />
                             <div className="room-info">
                                 <h3>{room.name}</h3>
-                                <p>${room.price}</p>
+                                <p>${room.price} per night</p>
+                                <p>Address: {room.address}</p>
+                                <p>Star Rating: {room.starRating} ⭐</p>
+                                <p>{room.description}</p>
+                                <p>Facilities: {room.facilities}</p>
+                                <p>Policies: {room.policies}</p>
                                 {room.breakfastIncluded && <p>Breakfast included</p>}
-                                <div className="amenities">
-                                    {room.amenities?.map((amenity, index) => (
-                                        <span key={index} className={`amenity-icon ${amenity}`}></span>
-                                    ))}
-                                </div>
                                 <button className="get-button" onClick={() => handleBookNow(room.id)}>
-                                    Book Room
+                                    Book Now
                                 </button>
+                                <button className="share-button">Share</button>
                             </div>
                         </div>
                     ))
