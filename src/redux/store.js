@@ -1,16 +1,13 @@
-// redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
-import hotelReducer from './hotelSlice'; 
-import paymentReducer from './paymentSlice'; 
+import hotelReducer from '../redux/hotelSlice'; // Ensure this import is correct
+import paymentReducer from '../redux/hotelSlice'; // Import the payment reducer
 
 const store = configureStore({
     reducer: {
-        hotel: hotelReducer,  // Your hotel reducer
-        payment: paymentReducer // Your payment reducer
+        hotels: hotelReducer,
+        payment: paymentReducer, // Add the payment reducer here
+        // Other reducers can be added here
     },
 });
 
 export default store;
-
-
-

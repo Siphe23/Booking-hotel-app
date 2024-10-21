@@ -4,12 +4,13 @@ import { loadStripe } from '@stripe/stripe-js';
 import Home from './pages/Home';
 import OurHotels from './pages/ourHotels';
 import BookNow from './pages/booknow';
-import Profile from './pages/Profile'; // Profile for login/signup
-import PersonalForm from './components/PersonalForm'; // New PersonalForm component
+import Profile from './pages/Profile'; 
+import PersonalForm from './components/PersonalForm'; 
 import PaymentForm from './components/PaymentForm';
 import Favorites from './pages/Favorites'; 
 import { RatingsProvider } from './context/RatingsContext'; 
-
+import UserProfile from './components/UserProfile';
+import BookingDetails from './components/BookingDetails'; 
 const stripePromise = loadStripe('pk_test_51Q7YPz09Ta8MClJBUH2kbUiZN5oCcKm2J5qp3qZu7p5PN6hDt9CPrfZHwdI1swVFymlreTXSl3aLRfDTLNzSgTLu00z98j4NHf');
 
 const App = () => {
@@ -30,7 +31,9 @@ const App = () => {
             </Elements>
            
           } />
-          <Route path="/favorites" element={<Favorites />} /> {/* Ensure this matches */}
+              <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/bookingDetails" element={<BookingDetails />} />
         </Routes>
       </BrowserRouter>
     </RatingsProvider>

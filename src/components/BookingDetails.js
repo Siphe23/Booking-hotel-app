@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import '../assets/BookingDetails.css';
+import '../assets/BookingDetails.css'; // Import the CSS file
 import { db } from '../Firebase/firebase'; 
 
 const BookingDetails = () => {
@@ -41,15 +41,17 @@ const BookingDetails = () => {
     return (
         <div className="booking-details">
             <Navbar />
-            <h2>Your Booking Details</h2>
-            <p><strong>Name:</strong> {booking.firstName} {booking.lastName}</p>
-            <p><strong>Email:</strong> {booking.email}</p>
-            <p><strong>Room Type:</strong> {booking.roomType}</p>
-            <p><strong>Check-In:</strong> {booking.checkIn}</p>
-            <p><strong>Check-Out:</strong> {booking.checkOut}</p>
-            <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
-            <button onClick={handleProceedToPayment}>Proceed to Payment</button>
-            <button onClick={handleCancelBooking}>Cancel Booking</button>
+            <div className="card">
+                <h2>Your Booking Details</h2>
+                <p><strong>Name:</strong> {booking.firstName} {booking.lastName}</p>
+                <p><strong>Email:</strong> {booking.email}</p>
+                <p><strong>Room Type:</strong> {booking.roomType}</p>
+                <p><strong>Check-In:</strong> {booking.checkIn}</p>
+                <p><strong>Check-Out:</strong> {booking.checkOut}</p>
+                <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
+                <button onClick={handleProceedToPayment}>Proceed to Payment</button>
+                <button onClick={handleCancelBooking}>Cancel Booking</button>
+            </div>
             <Footer />
         </div>
     );

@@ -1,3 +1,5 @@
+
+
 body {   
   background-size: cover; 
   background-position: center; 
@@ -30,38 +32,3 @@ body {
   }
 }
 
-
-/* body {   
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat;
-  background-attachment: fixed; 
-  font-family: Arial, sans-serif;
-  animation: slideBackground 15s infinite; 
-  height: 100vh; 
-  margin: 0; 
-}
-
-@keyframes slideBackground {
-  0% {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2F3d-rendered-image-woman-relaxing-sun_1066261-56027.jpg?alt=media'); 
-  }
-  20% {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fpeop.png.jpg?alt=media'); 
-  }
-  40% {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fre.png.jpg?alt=media'); 
-  }
-  60% {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fback1.jpg?alt=media'); 
-  }
-  80% {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fback3.jpg?alt=media'); 
-  }
-  100% {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fback3.jpg?alt=media'); 
-  }
-  120% {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fback3.jpg?alt=media'); 
-  }
-}

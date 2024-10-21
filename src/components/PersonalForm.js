@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; 
-import { storage } from '../Firebase/firebase'; // Ensure this import is correct
+import { storage } from '../Firebase/firebase';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const PersonalForm = () => {
   const navigate = useNavigate();
@@ -63,6 +65,7 @@ const PersonalForm = () => {
 
   return (
     <div>
+      <Navbar />
       <h2>Sign Up and Complete Your Profile</h2>
       <form onSubmit={handleSubmit}>
         {/* Form fields */}
@@ -94,7 +97,9 @@ const PersonalForm = () => {
           {uploading ? 'Uploading...' : 'Sign Up'}
         </button>
       </form>
+      <Footer />
     </div>
+    
   );
 };
 

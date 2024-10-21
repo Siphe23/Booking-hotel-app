@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRoomsFromFirestore } from '../redux/hotelSlice'; // Use Firestore action
+import { fetchRoomsFromFirestore } from '../redux/hotelSlice'; // This should now match
 import { useNavigate } from 'react-router-dom'; 
 import '../assets/HotelList.css';
 
 function HotelList() {
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
-    const rooms = useSelector((state) => state.hotels.rooms) || []; // Fallback to empty array
+    const rooms = useSelector((state) => state.hotels.rooms) || [];
+const status = useSelector((state) => state.hotels.status);
+const error = useSelector((state) => state.hotels.error);
 
     useEffect(() => {
-        dispatch(fetchRooms()); // Fetch rooms when the component mounts
+        dispatch(fetchRoomsFromFirestore()); // Fetch rooms when the component mounts
     }, [dispatch]);
 
     if (status === 'loading') {
@@ -18,10 +20,9 @@ function HotelList() {
     }
 
     const handleBookNow = (roomId) => {
-        navigate(`/booknow?roomId=${roomId}`); // Navigate to booking page with room ID
+        navigate(`/booknow?roomId=${roomId}`); 
     };
 
-    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error loading rooms: {error}</p>;
 
     return (
@@ -56,6 +57,3 @@ function HotelList() {
 }
 
 export default HotelList;
-
-
-
