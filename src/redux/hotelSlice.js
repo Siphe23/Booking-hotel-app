@@ -1,7 +1,8 @@
-// Import the necessary functions
+// Import necessary Firebase functions
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { db } from '../Firebase/firebase'; // Ensure this imports the correct Firestore instance
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db, storage } from '../Firebase/firebase'; // Import Firestore and Storage instances
+import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Fetch rooms from Firestore
 export const fetchRoomsFromFirestore = createAsyncThunk('hotels/fetchRooms', async () => {
@@ -11,7 +12,29 @@ export const fetchRoomsFromFirestore = createAsyncThunk('hotels/fetchRooms', asy
     return roomList;
 });
 
-// ... other actions like addRoomToFirestore
+// Upload room image to Firebase Storage
+export const uploadRoomImage = createAsyncThunk('hotels/uploadRoomImage', async ({ roomId, file }, thunkAPI) => {
+    try {
+        // Create a reference to the storage location for the image
+        const storageRef = ref(storage, `rooms/${roomId}/${file.name}`);
+        
+        // Upload the file to Firebase Storage
+        const snapshot = await uploadBytes(storageRef, file);
+
+        // Get the download URL for the uploaded image
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        // Update the room document in Firestore with the new image URL
+        const roomDoc = doc(db, 'rooms', roomId);
+        await updateDoc(roomDoc, {
+            imageUrl: downloadURL,
+        });
+
+        return { roomId, downloadURL };
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.message);
+    }
+});
 
 // Create the hotel slice
 const hotelSlice = createSlice({
@@ -35,7 +58,17 @@ const hotelSlice = createSlice({
                 state.status = 'failed'; // Set the status to failed
                 state.error = action.error.message; // Capture error message
             })
-            // ... other extra reducers
+            .addCase(uploadRoomImage.fulfilled, (state, action) => {
+                const { roomId, downloadURL } = action.payload;
+                // Update the room in state with the new image URL
+                const room = state.rooms.find((room) => room.id === roomId);
+                if (room) {
+                    room.imageUrl = downloadURL;
+                }
+            })
+            .addCase(uploadRoomImage.rejected, (state, action) => {
+                state.error = action.payload; // Capture image upload error
+            });
     },
 });
 
