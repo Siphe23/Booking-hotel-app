@@ -1,75 +1,124 @@
-// Import necessary Firebase functions
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { db, storage } from '../Firebase/firebase'; // Import Firestore and Storage instances
-import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
 
-// Fetch rooms from Firestore
-export const fetchRoomsFromFirestore = createAsyncThunk('hotels/fetchRooms', async () => {
+// Existing thunks
+export const fetchReservationsFromFirestore = createAsyncThunk(
+  'hotel/fetchReservations',
+  async () => {
+    const db = getFirestore();
+    const reservationsCollection = collection(db, 'booked');
+    const snapshot = await getDocs(reservationsCollection);
+    
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  }
+);
+
+export const fetchBookedHotelsFromFirestore = createAsyncThunk(
+  'hotel/fetchBookedHotels',
+  async () => {
+    const db = getFirestore();
+    const bookedHotelsCollection = collection(db, 'bookedHotels');
+    const snapshot = await getDocs(bookedHotelsCollection);
+    
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  }
+);
+
+// New thunk for fetching rooms
+export const fetchRoomsFromFirestore = createAsyncThunk(
+  'hotel/fetchRooms',
+  async () => {
+    const db = getFirestore();
+    const roomsCollection = collection(db, 'rooms'); // Adjust as necessary
+    const snapshot = await getDocs(roomsCollection);
+    
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  }
+);
+
+// Existing thunk for adding a room
+export const addRoomToFirestore = createAsyncThunk(
+  'hotel/addRoom',
+  async (roomDetails) => {
+    const db = getFirestore();
     const roomsCollection = collection(db, 'rooms');
-    const roomSnapshot = await getDocs(roomsCollection);
-    const roomList = roomSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    return roomList;
-});
+    const docRef = await addDoc(roomsCollection, roomDetails);
+    return { id: docRef.id, ...roomDetails };
+  }
+);
 
-// Upload room image to Firebase Storage
-export const uploadRoomImage = createAsyncThunk('hotels/uploadRoomImage', async ({ roomId, file }, thunkAPI) => {
-    try {
-        // Create a reference to the storage location for the image
-        const storageRef = ref(storage, `rooms/${roomId}/${file.name}`);
-        
-        // Upload the file to Firebase Storage
-        const snapshot = await uploadBytes(storageRef, file);
-
-        // Get the download URL for the uploaded image
-        const downloadURL = await getDownloadURL(snapshot.ref);
-
-        // Update the room document in Firestore with the new image URL
-        const roomDoc = doc(db, 'rooms', roomId);
-        await updateDoc(roomDoc, {
-            imageUrl: downloadURL,
-        });
-
-        return { roomId, downloadURL };
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
-    }
-});
-
-// Create the hotel slice
 const hotelSlice = createSlice({
-    name: 'hotels',
-    initialState: {
-        rooms: [],
-        status: 'idle',
-        error: null,
-    },
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchRoomsFromFirestore.fulfilled, (state, action) => {
-                state.rooms = action.payload;
-                state.status = 'succeeded'; // Set the status to succeeded
-            })
-            .addCase(fetchRoomsFromFirestore.pending, (state) => {
-                state.status = 'loading'; // Set the status to loading
-            })
-            .addCase(fetchRoomsFromFirestore.rejected, (state, action) => {
-                state.status = 'failed'; // Set the status to failed
-                state.error = action.error.message; // Capture error message
-            })
-            .addCase(uploadRoomImage.fulfilled, (state, action) => {
-                const { roomId, downloadURL } = action.payload;
-                // Update the room in state with the new image URL
-                const room = state.rooms.find((room) => room.id === roomId);
-                if (room) {
-                    room.imageUrl = downloadURL;
-                }
-            })
-            .addCase(uploadRoomImage.rejected, (state, action) => {
-                state.error = action.payload; // Capture image upload error
-            });
-    },
+  name: 'hotel',
+  initialState: {
+    reservations: [],
+    bookedHotels: [],
+    rooms: [],
+    loading: false,
+    error: null,
+    addRoomLoading: false,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchReservationsFromFirestore.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchReservationsFromFirestore.fulfilled, (state, action) => {
+        state.loading = false;
+        state.reservations = action.payload;
+      })
+      .addCase(fetchReservationsFromFirestore.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchBookedHotelsFromFirestore.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchBookedHotelsFromFirestore.fulfilled, (state, action) => {
+        state.loading = false;
+        state.bookedHotels = action.payload;
+      })
+      .addCase(fetchBookedHotelsFromFirestore.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchRoomsFromFirestore.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchRoomsFromFirestore.fulfilled, (state, action) => {
+        state.loading = false;
+        state.rooms = action.payload;
+      })
+      .addCase(fetchRoomsFromFirestore.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(addRoomToFirestore.pending, (state) => {
+        state.addRoomLoading = true;
+        state.error = null;
+      })
+      .addCase(addRoomToFirestore.fulfilled, (state, action) => {
+        state.addRoomLoading = false;
+        state.rooms.push(action.payload);
+      })
+      .addCase(addRoomToFirestore.rejected, (state, action) => {
+        state.addRoomLoading = false;
+        state.error = action.error.message;
+      });
+  },
 });
 
+// No need to re-export the functions if they're already exported at the top
 export default hotelSlice.reducer; // Export the reducer as default

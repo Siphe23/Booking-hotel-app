@@ -12,23 +12,22 @@ body {
 }
 
 @keyframes slideBackground {
-  0%, 16.66% {
+  0%, 16.67% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fback1.jpg?alt=media'); 
   }
-  16.66%, 33.33% {
+  16.67%, 33.34% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fpeop.png.jpg?alt=media'); 
   }
-  33.33%, 50% {
+  33.34%, 50.01% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fre.png.jpg?alt=media'); 
   }
-  50%, 66.66% {
+  50.01%, 66.68% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fback2.jpg?alt=media'); 
   }
-  66.66%, 83.33% {
+  66.68%, 83.35% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2FHotel3.jpg?alt=media'); 
   }
-  83.33%, 100% {
+  83.35%, 100% {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/hotel-booking-app-a083a.appspot.com/o/Background-images%2Fback1.jpg?alt=media'); 
   }
 }
-

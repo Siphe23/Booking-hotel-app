@@ -1,4 +1,3 @@
-// src/components/Navbar.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth'; 
@@ -42,36 +41,35 @@ function Navbar() {
       <ul className="nav-links">
         <li><Link to="/home"><i className="fas fa-home"></i> Home</Link></li>
         <li><Link to="/ourhotels"><i className="fas fa-hotel"></i> Our Hotels</Link></li>
-        <li><Link to="/profile" state={userDetails}><i className="fas fa-user"></i> Profile</Link></li>
-        <li>
-          {isAuthenticated ? (
-            <>
-              <li><Link to="/paymentForm"><i className="fas fa-credit-card"></i> Pay Now</Link></li>
-              <Link to="/booknow" className="btn btn-default">
-                <i className="fas fa-book"></i> Book Now
-              </Link>
-              <button onClick={handleLogout} className="btn btn-default">
-                <i className="fas fa-sign-out-alt"></i> Logout
-              </button>
-              {userDetails && (
-                <img 
-                  src={userDetails.profilePicture} 
-                  alt="Profile" 
-                  style={{ width: '40px', borderRadius: '50%', marginLeft: '10px' }} 
-                />
-              )}
-            </>
-          ) : (
-            <>
-              <Link to="/profile" className="auth-button">
-                <i className="fas fa-sign-in-alt"></i> Login
-              </Link>
-              <Link to="/profile" className="auth-button">
-                <i className="fas fa-user-plus"></i> Signup
-              </Link>
-            </>
-          )}
-        </li>
+        {isAuthenticated && (
+          <>
+            <li><Link to="/profile" state={userDetails}><i className="fas fa-user"></i> Profile</Link></li>
+            <li><Link to="/paymentForm"><i className="fas fa-credit-card"></i> Pay Now</Link></li>
+            <Link to="/booknow" className="btn btn-default">
+              <i className="fas fa-book"></i> Book Now
+            </Link>
+            <button onClick={handleLogout} className="btn btn-default">
+              <i className="fas fa-sign-out-alt"></i> Logout
+            </button>
+            {userDetails && (
+              <img 
+                src={userDetails.profilePicture} 
+                alt="Profile" 
+                style={{ width: '40px', borderRadius: '50%', marginLeft: '10px' }} 
+              />
+            )}
+          </>
+        )}
+        {!isAuthenticated && (
+          <>
+            <Link to="/profile" className="auth-button">
+              <i className="fas fa-sign-in-alt"></i> Login
+            </Link>
+            <Link to="/profile" className="auth-button">
+              <i className="fas fa-user-plus"></i> Signup
+            </Link>
+          </>
+        )}
       </ul>
     </nav>
   );

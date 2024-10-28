@@ -2,22 +2,64 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRoomsFromFirestore } from '../redux/hotelSlice';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify'; // Add ToastContainer import
-import 'react-toastify/dist/ReactToastify.css'; // Add this line to import the CSS
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FaStar, FaHeart } from 'react-icons/fa';
 import '../assets/HotelList.css';
 
 function HotelList() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const rooms = useSelector((state) => state.hotels.rooms) || [];
+    const [mockRooms, setMockRooms] = useState([]);
+    const rooms = useSelector((state) => state.hotels.rooms) || mockRooms; // Fallback to mockRooms if rooms are empty
     const [ratings, setRatings] = useState({});
     const [favorites, setFavorites] = useState([]);
     const status = useSelector((state) => state.hotels.status);
     const error = useSelector((state) => state.hotels.error);
 
     useEffect(() => {
+        // Fetch rooms from Firestore
         dispatch(fetchRoomsFromFirestore());
+
+        // For testing, add mock rooms if there are no rooms from Firestore
+        if (rooms.length === 0) {
+            setMockRooms([
+                {
+                    id: '1',
+                    name: 'Room A',
+                    price: 120,
+                    address: '123 Main St',
+                    description: 'Cozy room with great views',
+                    facilities: 'Free Wi-Fi, Pool, Gym',
+                    policies: 'No smoking, No pets',
+                    breakfastIncluded: true,
+                    imageUrl: 'https://example.com/image1.jpg',
+                },
+                {
+                    id: '2',
+                    name: 'Room B',
+                    price: 150,
+                    address: '456 Elm St',
+                    description: 'Luxury room with king-sized bed',
+                    facilities: 'Free breakfast, Pool, Spa',
+                    policies: 'Pets allowed, No smoking',
+                    breakfastIncluded: false,
+                    imageUrl: 'https://example.com/image2.jpg',
+                },
+                {
+                    id: '3',
+                    name: 'Room C',
+                    price: 90,
+                    address: '789 Pine St',
+                    description: 'Budget-friendly room with essentials',
+                    facilities: 'Wi-Fi, Gym access',
+                    policies: 'No pets, No smoking',
+                    breakfastIncluded: false,
+                    imageUrl: 'https://example.com/image3.jpg',
+                },
+                // Add more room objects here as needed
+            ]);
+        }
     }, [dispatch]);
 
     if (status === 'loading') {
@@ -29,7 +71,7 @@ function HotelList() {
     };
 
     const handleShowMore = (id) => {
-        navigate(`/rooms/${id}`); // Navigate to room details page with ID
+        navigate(`/rooms/${id}`);
     };
 
     const handleRateRoom = (roomId, rating) => {
@@ -91,7 +133,7 @@ function HotelList() {
                     <p>No rooms available.</p>
                 )}
             </div>
-            <ToastContainer /> {/* Add ToastContainer here */}
+            <ToastContainer /> {/* Toast notifications */}
         </div>
     );
 }
