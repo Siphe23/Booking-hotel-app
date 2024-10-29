@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useRatings } from '../context/RatingsContext'; // Import the context
+import { useRatingsContext } from '../context/RatingsContext'; // Corrected import for the context hook
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import '../assets/fav.css'; // Make sure to import your CSS for styling
 
 const Favorites = () => {
-  const { favourites } = useRatings(); // Access the favorites from context
+  const { favorites } = useRatingsContext(); // Access the favorites from context
   const [favoriteHotels, setFavoriteHotels] = useState([]);
   const [visibleCount, setVisibleCount] = useState(3); // Show 3 hotels initially
   const storage = getStorage(); // Initialize Firebase Storage
 
-  // Ensure favourites is defined and is an array
-  const safeFavourites = Array.isArray(favourites) ? favourites : [];
+  // Ensure favorites is defined and is an array
+  const safeFavorites = Array.isArray(favorites) ? favorites : [];
 
   useEffect(() => {
     const fetchFavoriteHotels = async () => {
       const fetchedHotels = await Promise.all(
-        safeFavourites.map(async (hotelId) => {
+        safeFavorites.map(async (hotelId) => {
           try {
             const imgSrc = await getDownloadURL(ref(storage, `hotel/${hotelId}.jpg`)); // Assuming hotelId corresponds to the image name
             return { id: hotelId, imgSrc }; // Add more hotel details as needed
@@ -30,7 +30,7 @@ const Favorites = () => {
     };
 
     fetchFavoriteHotels();
-  }, [safeFavourites, storage]);
+  }, [safeFavorites, storage]);
 
   const handleShowMore = () => {
     setVisibleCount((prevCount) => prevCount + 3); // Increase visible count by 3

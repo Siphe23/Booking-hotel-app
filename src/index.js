@@ -1,18 +1,20 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux'; // Import the Provider
-import store from './redux/store'; // Import your Redux store
+import { Provider } from 'react-redux'; 
+import store from './redux/store'; 
 import App from './App';
-import { RatingsProvider } from './context/RatingsContext';
+import { HotelProvider } from './context/HotelContext'; // Import HotelProvider
+import { RatingsProvider } from './context/RatingsContext'; // Import RatingsProvider
 
-// Create root using createRoot
 const root = createRoot(document.getElementById('root')); 
 
-// Render the App component wrapped in Provider and RatingsProvider
 root.render(
-    <Provider store={store}> {/* Wrap App with Provider */}
+    <Provider store={store}>
         <RatingsProvider>
-            <App />
+            <HotelProvider>
+                <App />
+            </HotelProvider>
         </RatingsProvider>
     </Provider>
 );
+

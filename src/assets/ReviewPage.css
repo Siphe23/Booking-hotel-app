@@ -1,0 +1,33 @@
+/* src/assets/ReviewPage.css */
+
+.review-page-container {
+    padding: 20px;
+}
+
+.room-card {
+    display: flex;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.room-image {
+    width: 100px;
+    height: 100px;
+    margin-right: 15px;
+    border-radius: 8px;
+}
+
+.room-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.star-icon.rated {
+    color: gold;
+}
+
+.favorite-icon {
+    color: red;
+}
