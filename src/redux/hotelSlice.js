@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
 
-// Existing thunks
+// Fetch reservations from Firestore
 export const fetchReservationsFromFirestore = createAsyncThunk(
   'hotel/fetchReservations',
   async () => {
@@ -16,6 +16,7 @@ export const fetchReservationsFromFirestore = createAsyncThunk(
   }
 );
 
+// Fetch booked hotels from Firestore
 export const fetchBookedHotelsFromFirestore = createAsyncThunk(
   'hotel/fetchBookedHotels',
   async () => {
@@ -30,12 +31,12 @@ export const fetchBookedHotelsFromFirestore = createAsyncThunk(
   }
 );
 
-// New thunk for fetching rooms
+// Fetch rooms from Firestore
 export const fetchRoomsFromFirestore = createAsyncThunk(
   'hotel/fetchRooms',
   async () => {
     const db = getFirestore();
-    const roomsCollection = collection(db, 'rooms'); // Adjust as necessary
+    const roomsCollection = collection(db, 'rooms'); // Ensure 'rooms' is the correct collection name
     const snapshot = await getDocs(roomsCollection);
     
     return snapshot.docs.map(doc => ({
@@ -45,7 +46,7 @@ export const fetchRoomsFromFirestore = createAsyncThunk(
   }
 );
 
-// Existing thunk for adding a room
+// Add room to Firestore
 export const addRoomToFirestore = createAsyncThunk(
   'hotel/addRoom',
   async (roomDetails) => {
@@ -99,7 +100,7 @@ const hotelSlice = createSlice({
       })
       .addCase(fetchRoomsFromFirestore.fulfilled, (state, action) => {
         state.loading = false;
-        state.rooms = action.payload;
+        state.rooms = action.payload; // Ensure rooms include image URLs
       })
       .addCase(fetchRoomsFromFirestore.rejected, (state, action) => {
         state.loading = false;
@@ -111,7 +112,7 @@ const hotelSlice = createSlice({
       })
       .addCase(addRoomToFirestore.fulfilled, (state, action) => {
         state.addRoomLoading = false;
-        state.rooms.push(action.payload);
+        state.rooms.push(action.payload); // Ensure added room includes image URL
       })
       .addCase(addRoomToFirestore.rejected, (state, action) => {
         state.addRoomLoading = false;
@@ -120,5 +121,5 @@ const hotelSlice = createSlice({
   },
 });
 
-// No need to re-export the functions if they're already exported at the top
-export default hotelSlice.reducer; // Export the reducer as default
+// Export the reducer as default
+export default hotelSlice.reducer;
