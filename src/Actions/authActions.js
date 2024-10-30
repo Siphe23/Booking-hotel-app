@@ -1,22 +1,8 @@
-<<<<<<< HEAD
-// /shared/Actions/authActions.js
-=======
 // src/redux/authActions.js
 
->>>>>>> f4b5e83 (added new files)
-import {
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-} from './actionTypes';
-<<<<<<< HEAD
 import { auth } from '../Firebase/firebase';
-=======
-import { auth } from '../Firebase/firebase'; // Correctly import the auth service
->>>>>>> f4b5e83 (added new files)
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { login, setError } from './authSlice'; // Import actions from authSlice
+import { login, setError } from './authSlice'; // Ensure the path to authSlice is correct
 
 // Login action
 export const loginUser = (email, password) => async (dispatch) => {
@@ -34,7 +20,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     const token = await user.getIdToken();
     localStorage.setItem('token', token);
   } catch (error) {
-    dispatch(setError(error.message)); // Handle error
+    dispatch(setError(error.message)); // Dispatch error action
   }
 };
 
@@ -55,6 +41,6 @@ export const registerUser = (email, password, username) => async (dispatch) => {
     const token = await user.getIdToken();
     localStorage.setItem('token', token);
   } catch (error) {
-    dispatch(setError(error.message)); // Handle error
+    dispatch(setError(error.message)); // Dispatch error action
   }
 };
