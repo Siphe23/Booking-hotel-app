@@ -1,4 +1,3 @@
-// src/components/HotelList.js
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRoomsFromFirestore } from '../redux/hotelSlice';
@@ -14,7 +13,7 @@ function HotelList() {
     const navigate = useNavigate();
     const rooms = useSelector((state) => state.hotels.rooms);
     const { ratings, favorites, addFavorite, rateRoom } = useHotelContext();
-    const status = useSelector((state) => state.hotels.status);
+    const status = useSelector((state) => state.hotels.loading);
     const error = useSelector((state) => state.hotels.error);
 
     // Fetch rooms from Firestore when component mounts
@@ -40,7 +39,7 @@ function HotelList() {
         toast.success(`Added room ID: ${roomId} to favorites`);
     };
 
-    if (status === 'loading') {
+    if (status) {
         return <div>Loading rooms...</div>;
     }
 
@@ -50,7 +49,9 @@ function HotelList() {
         <div className="hotel-list-container">
             <h2>Available Accommodations</h2>
             <div className="rooms-grid">
-                {rooms.length > 0 ? (
+                {rooms.length === 0 ? (
+                    <p>No rooms available</p>
+                ) : (
                     rooms.map((room) => (
                         <div key={room.id} className="room-card">
                             <img
@@ -88,8 +89,6 @@ function HotelList() {
                             </div>
                         </div>
                     ))
-                ) : (
-                    <p>No rooms available</p>
                 )}
             </div>
             <ToastContainer />
@@ -98,3 +97,4 @@ function HotelList() {
 }
 
 export default HotelList;
+

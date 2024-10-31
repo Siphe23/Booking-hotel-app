@@ -36,7 +36,7 @@ export const fetchRoomsFromFirestore = createAsyncThunk(
   'hotel/fetchRooms',
   async () => {
     const db = getFirestore();
-    const roomsCollection = collection(db, 'rooms'); // Ensure 'rooms' is the correct collection name
+    const roomsCollection = collection(db, 'rooms'); 
     const snapshot = await getDocs(roomsCollection);
     
     return snapshot.docs.map(doc => ({
@@ -100,7 +100,12 @@ const hotelSlice = createSlice({
       })
       .addCase(fetchRoomsFromFirestore.fulfilled, (state, action) => {
         state.loading = false;
-        state.rooms = action.payload; // Ensure rooms include image URLs
+
+        // Avoid duplicates
+        const existingRoomIds = new Set(state.rooms.map(room => room.id));
+        const newRooms = action.payload.filter(room => !existingRoomIds.has(room.id));
+        
+        state.rooms.push(...newRooms); // Add only new rooms
       })
       .addCase(fetchRoomsFromFirestore.rejected, (state, action) => {
         state.loading = false;
