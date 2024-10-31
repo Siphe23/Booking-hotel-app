@@ -1,5 +1,5 @@
 // src/components/HotelList.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRoomsFromFirestore } from '../redux/hotelSlice';
 import { useNavigate } from 'react-router-dom';
@@ -12,26 +12,15 @@ import '../assets/HotelList.css';
 function HotelList() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [mockRooms, setMockRooms] = useState([]);
-    const rooms = useSelector((state) => state.hotels.rooms) || mockRooms;
-    const { ratings, favorites, addFavorite, rateRoom } = useHotelContext(); // Use context state for ratings and favorites
+    const rooms = useSelector((state) => state.hotels.rooms);
+    const { ratings, favorites, addFavorite, rateRoom } = useHotelContext();
     const status = useSelector((state) => state.hotels.status);
     const error = useSelector((state) => state.hotels.error);
 
-    // Fetch rooms when component mounts
+    // Fetch rooms from Firestore when component mounts
     useEffect(() => {
         dispatch(fetchRoomsFromFirestore());
     }, [dispatch]);
-
-    // Set mock rooms if no rooms are fetched
-    useEffect(() => {
-        if (rooms.length === 0) {
-            setMockRooms([
-                { id: '1', name: 'Room A', price: 120, address: '123 Main St', description: 'Cozy room with great views', facilities: 'Free Wi-Fi, Pool, Gym', policies: 'No smoking, No pets', breakfastIncluded: true, imageUrl: 'https://example.com/images/room-a.jpg' },
-                // Add the rest of your mock rooms here...
-            ]);
-        }
-    }, [rooms]);
 
     const handleBookNow = (roomId) => {
         navigate(`/booknow?roomId=${roomId}`);
@@ -42,12 +31,12 @@ function HotelList() {
     };
 
     const handleRateRoom = (roomId, rating) => {
-        rateRoom(roomId, rating); // Call rateRoom from context
+        rateRoom(roomId, rating);
         toast.success(`Rated ${rating} stars for room ID: ${roomId}`);
     };
 
     const handleFavorite = (roomId) => {
-        addFavorite(roomId); // Call addFavorite from context
+        addFavorite(roomId);
         toast.success(`Added room ID: ${roomId} to favorites`);
     };
 
@@ -64,13 +53,13 @@ function HotelList() {
                 {rooms.length > 0 ? (
                     rooms.map((room) => (
                         <div key={room.id} className="room-card">
-                            {room.imageUrl ? (
-                                <img src={room.imageUrl} alt={room.name} className="room-image" />
-                            ) : (
-                                <img src="path/to/placeholder-image.jpg" alt="No Image Available" className="room-image" />
-                            )}
+                            <img
+                                src={room.imageUrl || 'path/to/default-image.jpg'}
+                                alt={room.name}
+                                className="room-image"
+                            />
                             <div className="room-info">
-                                <h3>{room.name || 'DELUX'}</h3>
+                                <h3>{room.name}</h3>
                                 <p>RSA {room.price} per night</p>
                                 <p>Address: {room.address || 'Address not available'}</p>
                                 <p>{room.description || 'No description available'}</p>
